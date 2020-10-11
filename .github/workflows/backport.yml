@@ -1,4 +1,4 @@
-name: Backport
+name: Backport PRs to a release branch
 on:
   pull_request:
     types:
@@ -6,11 +6,18 @@ on:
       - labeled
 
 jobs:
-  backport:
-    runs-on: ubuntu-18.04
-    name: Backport
+  main:
+    runs-on: ubuntu-latest
     steps:
-      - name: Backport
-        uses: tibdex/backport@v1
+      - name: Checkout Actions
+        uses: actions/checkout@v2
         with:
-          github_token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          repository: "grafana/grafana-github-actions"
+          path: ./actions
+          ref: main
+      - name: Install Actions
+        run: npm install --production --prefix ./actions
+      - name: Run backporter
+        uses: ./actions/backport
+        with:
+          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
