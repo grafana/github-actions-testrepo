@@ -1,4 +1,4 @@
-name: Backport PRs to a release branch
+name: Cherry-pick PR to a release branch
 on:
   pull_request:
     types:
@@ -17,7 +17,7 @@ jobs:
           ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
-      - name: Run backporter
-        uses: ./actions/backport
+      - name: Run cherry-pick
+        uses: ./actions/cherry-pick-pr
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
