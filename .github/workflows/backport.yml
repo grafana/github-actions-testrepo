@@ -21,6 +21,6 @@ jobs:
         uses: ./actions/backport
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
-          labelsToAdd: add to changelog,backport
+          labelsToAdd: "add to changelog, backport"
           title: [Backport to {{base}}] {{originalTitle}}
 
