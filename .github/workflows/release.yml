@@ -1,0 +1,26 @@
+name: Release Automation
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        required: true
+        default: 'version-bump'
+
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v2
+        with:
+          repository: "grafana/grafana-github-actions"
+          path: ./actions
+          ref: main
+      - name: Install Actions
+        run: npm install --production --prefix ./actions
+      - name: Run release automation
+        uses: ./actions/grafana-release
+        with:
+          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          labelsToAdd: "add to changelog, backport"
+          title: "[Backport to {{base}}] {{originalTitle}}"
+
