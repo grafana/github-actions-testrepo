@@ -21,6 +21,4 @@ jobs:
         uses: ./actions/grafana-release
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
-          labelsToAdd: "add to changelog, backport"
-          title: "[Backport to {{base}}] {{originalTitle}}"
 
