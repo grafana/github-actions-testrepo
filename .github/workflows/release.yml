@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Checkout Actions
         uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12'
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
           ref: main
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run bump version
