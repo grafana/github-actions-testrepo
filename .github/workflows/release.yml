@@ -5,7 +5,7 @@ on:
       task:
         required: true
         default: 'version-bump'
-
+jobs:
   main:
     runs-on: ubuntu-latest
     steps:
