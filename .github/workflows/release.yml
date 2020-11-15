@@ -1,10 +1,10 @@
-name: Release Automation
+name: Bump version
 on:
   workflow_dispatch:
     inputs:
-      task:
+      version:
         required: true
-        default: 'version-bump'
+        default: '2.0.0'
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -17,8 +17,8 @@ jobs:
           ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
-      - name: Run release automation
-        uses: ./actions/grafana-release
+      - name: Run bump version
+        uses: ./actions/bump-version
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
 
