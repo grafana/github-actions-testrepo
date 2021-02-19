@@ -1,0 +1,24 @@
+name: Run commands when pull requests are opened/updated
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v2
+        with:
+          repository: "grafana/grafana-github-actions"
+          path: ./actions
+          ref: pr_changed_files
+      - name: Install Actions
+        run: npm install --production --prefix ./actions
+      - name: Run Commands
+        uses: ./actions/commands
+        with:
+          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          configPath: pr-commands
