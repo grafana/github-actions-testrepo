@@ -1,0 +1,26 @@
+[
+  {
+    "type": "changedfiles",
+    "matches": "test.txt",
+    "action": "updateLabel",
+    "addLabel": "change/testfiles"
+  },
+  {
+    "type": "changedfiles",
+    "matches": "package.json",
+    "action": "updateLabel",
+    "addLabel": "change/deps"
+  },
+  {
+    "type": "changedfiles",
+    "matches": "**",
+    "action": "updateLabel",
+    "addLabel": "change/all"
+  },
+  {
+    "type": "changedfiles",
+    "matches": ".github/**/*",
+    "action": "updateLabel",
+    "addLabel": "change/.github"
+  }
+]
