@@ -22,5 +22,11 @@
     "matches": ".github/**/*",
     "action": "updateLabel",
     "addLabel": "change/.github"
+  },
+  {
+    "type": "changedfiles",
+    "matches": "test3.txt",
+    "action": "updateLabel",
+    "addLabel": "change/testfiles"
   }
 ]
