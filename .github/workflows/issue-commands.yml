@@ -1,4 +1,4 @@
-name: un commands when issues are labeled or comments added
+name: Run commands when issues are labeled or comments added
 on:
   issues:
     types: [labeled]
