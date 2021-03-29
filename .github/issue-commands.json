@@ -1,0 +1,14 @@
+[
+  {
+    "type": "author",
+    "memberOf": { "org": "grafana" },
+    "action": "updateLabel",
+    "addLabel": "author/grafana"
+  },
+  {
+    "type": "author",
+    "notMemberOf": { "org": "grafana" },
+    "action": "updateLabel",
+    "addLabel": "author/not-grafana"
+  }
+]
