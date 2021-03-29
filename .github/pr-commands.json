@@ -39,7 +39,7 @@
   },
   {
     "type": "author",
-    "notMemberOf": { "org": "grafana" },
+    "notMemberOf": { "org": "prometheus" },
     "action": "updateLabel",
     "addLabel": "author/not-grafana"
   }
