@@ -1,9 +1,9 @@
-name: Run commands when pull requests are opened/updated
+name: un commands when issues are labeled or comments added
 on:
-  pull_request_target:
-    types:
-      - opened
-      - synchronize
+  issues:
+    types: [labeled]
+  issue_comment:
+    types: [created]
 
 jobs:
   main:
@@ -21,4 +21,4 @@ jobs:
         uses: ./actions/commands
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
-          configPath: pr-commands
+          configPath: issue-commands

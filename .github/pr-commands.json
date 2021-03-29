@@ -1,7 +1,9 @@
 [
   {
     "type": "changedfiles",
-    "matches": "test.txt",
+    "matches": [
+      "test.txt"
+    ],
     "action": "updateLabel",
     "addLabel": "change/testfiles"
   },
@@ -28,5 +30,17 @@
     "matches": "test3.txt",
     "action": "updateLabel",
     "addLabel": "change/testfiles"
+  },
+  {
+    "type": "author",
+    "memberOf": { "org": "grafana" },
+    "action": "updateLabel",
+    "addLabel": "author/grafana"
+  },
+  {
+    "type": "author",
+    "notMemberOf": { "org": "grafana" },
+    "action": "updateLabel",
+    "addLabel": "author/not-grafana"
   }
 ]
