@@ -10,5 +10,11 @@
     "notMemberOf": { "org": "prometheus" },
     "action": "updateLabel",
     "addLabel": "author/not-grafana"
+  },
+  {
+    "type": "label",
+    "name": "plugins",
+    "action": "addToProject",
+    "projectId": "71"
   }
 ]
