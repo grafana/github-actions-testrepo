@@ -12,9 +12,8 @@
     "addLabel": "author/not-grafana"
   },
   {
-    "type": "label",
+    "type": "addToProject",
     "name": "plugins",
-    "action": "addToProject",
     "projectId": "71"
   }
 ]
