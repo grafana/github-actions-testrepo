@@ -1,26 +1,7 @@
 [
   {
-    "type": "author",
-    "memberOf": { "org": "grafana" },
-    "action": "updateLabel",
-    "addLabel": "author/grafana"
-  },
-  {
-    "type": "author",
-    "notMemberOf": { "org": "prometheus" },
-    "action": "updateLabel",
-    "addLabel": "author/not-grafana"
-  },
-  {
     "type": "addToProject",
     "name": "plugins",
     "projectId": "71"
-  },
-  {
-    "type": "comment",
-    "name": "duplicate",
-    "allowUsers": [],
-    "action": "updateLabels",
-    "addLabel": "type/duplicate"
   }
 ]
