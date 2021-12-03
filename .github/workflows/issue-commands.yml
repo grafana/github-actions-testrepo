@@ -20,7 +20,7 @@ jobs:
       - name: Run Commands
         uses: ./actions/commands
         with:
-          token: ${{secrets.GH_TIMUR_BOT_ACCESS_TOKEN}}
+          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
           configPath: issue-commands
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
