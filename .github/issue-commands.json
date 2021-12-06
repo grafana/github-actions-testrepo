@@ -1,7 +1,10 @@
 [
   {
-    "type": "addToProject",
+    "type": "label",
     "name": "plugins",
-    "projectId": "76"
+    "action": "addToProject",
+    "addToProject": {
+      "url": "https://github.com/orgs/grafana/projects/76"
+    }
   }
 ]
