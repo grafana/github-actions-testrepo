@@ -42,5 +42,10 @@
     "notMemberOf": { "org": "prometheus" },
     "action": "updateLabel",
     "addLabel": "author/not-grafana"
+  },
+  {
+    "type": "addToProject",
+    "name": "plugins",
+    "projectId": "76"
   }
 ]
