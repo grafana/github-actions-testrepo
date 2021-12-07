@@ -14,13 +14,13 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: feat/auto-assign-issues-to-projects
+          ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
         uses: ./actions/commands
         with:
-          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           configPath: issue-commands
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
