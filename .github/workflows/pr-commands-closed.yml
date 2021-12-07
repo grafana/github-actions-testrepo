@@ -14,4 +14,4 @@ jobs:
         echo PR #${{ github.event.number }} has been closed without being merged, removing all milestones.
         gh pr edit ${{ github.event.number }} --milestone ""
       env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
