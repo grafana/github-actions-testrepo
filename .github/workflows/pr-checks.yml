@@ -22,5 +22,5 @@ jobs:
       - name: Run Commands
         uses: ./actions/pr-checks
         with:
-          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           configPath: pr-checks
