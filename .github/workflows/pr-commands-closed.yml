@@ -1,4 +1,4 @@
-name: Run commands when pull requests are opened/updated
+name: Run commands when pull requests are closed
 on:
   pull_request:
     types:
@@ -13,3 +13,5 @@ jobs:
     - run: |
         echo PR #${{ github.event.number }} has been closed without being merged, removing all milestones.
         gh pr edit ${{ github.event.number }} --milestone ""
+      env:
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
