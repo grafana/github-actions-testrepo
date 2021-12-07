@@ -1,0 +1,26 @@
+name: PR Checks
+on:
+  pull_request:
+    types:
+      - opened
+  issues:
+    types:
+      - milestoned
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v2
+        with:
+          repository: "grafana/grafana-github-actions"
+          path: ./actions
+          ref: 34_feat
+      - name: Install Actions
+        run: npm install --production --prefix ./actions
+      - name: Run Commands
+        uses: ./actions/pr-checks
+        with:
+          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          configPath: pr-checks
