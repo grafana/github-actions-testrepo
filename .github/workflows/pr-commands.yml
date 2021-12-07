@@ -15,7 +15,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: main
+          ref: chore/node-16
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
