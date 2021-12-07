@@ -4,6 +4,8 @@ on:
     types:
       - opened
       - synchronize
+      - milestoned
+      - demilestoned
   issues:
     types:
       - milestoned
