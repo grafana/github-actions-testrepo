@@ -4,6 +4,7 @@ on:
     types:
       - opened
       - milestoned
+      - demilestoned
 
 jobs:
   main:
