@@ -3,8 +3,10 @@ on:
   pull_request:
     types:
       - opened
-      - milestoned
       - synchronize
+  issues:
+    types:
+      - milestoned
       - demilestoned
 
 jobs:
