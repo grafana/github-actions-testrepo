@@ -62,3 +62,8 @@ jobs:
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
           metricsWriteAPIKey: ${{secrets.GRAFANA_MISC_STATS_API_KEY}}
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+          timeout-minutes: 15
