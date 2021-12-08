@@ -13,5 +13,13 @@
     "allowUsers": [],
     "action": "updateLabels",
     "addLabel": "type/duplicate"
+  },
+  {
+    "type": "label",
+    "name": "bot/question",
+    "addLabel": "type/question",
+    "removeLabel": "bot/question",
+    "action": "close",
+    "comment": "Please ask your question on [community.grafana.com/](https://community.grafana.com/). To avoid having your issue closed in the future, please read our [CONTRIBUTING](https://github.com/grafana/grafana/blob/main/CONTRIBUTING.md) guidelines.\n\nHappy graphing!"
   }
 ]
