@@ -52,7 +52,9 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: chore/node-16      
+          ref: chore/node-16
+      - name: Install yarn
+        run: npm install -g yarn      
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run bump version
