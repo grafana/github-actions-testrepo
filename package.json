@@ -1,6 +1,6 @@
 {
   "name": "github-actions-testrepo",
-  "version": "2.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/torkelo/github-actions-testrepo/issues"
   },
-  "homepage": "https://github.com/torkelo/github-actions-testrepo#readme"
+  "homepage": "https://github.com/torkelo/github-actions-testrepo#readme",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"      
+    ]
+  }
 }
