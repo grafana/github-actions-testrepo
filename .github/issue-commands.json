@@ -6,5 +6,12 @@
     "addToProject": {
       "url": "https://github.com/orgs/grafana/projects/76"
     }
+  },
+  {
+    "type": "comment",
+    "name": "duplicate",
+    "allowUsers": [],
+    "action": "updateLabels",
+    "addLabel": "type/duplicate"
   }
 ]
