@@ -52,7 +52,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: chore/node-16
+          ref: main
       - name: Install yarn
         run: npm install -g yarn      
       - name: Install Actions
@@ -62,8 +62,3 @@ jobs:
         with:
           token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
           metricsWriteAPIKey: ${{secrets.GRAFANA_MISC_STATS_API_KEY}}
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
-          timeout-minutes: 15
