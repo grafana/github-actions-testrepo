@@ -1,6 +1,6 @@
 name: PR Checks
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - synchronize
@@ -18,7 +18,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: main
+          ref: pr_checks_forks
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
