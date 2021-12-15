@@ -18,7 +18,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: pr_checks_forks
+          ref: backport_check
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
