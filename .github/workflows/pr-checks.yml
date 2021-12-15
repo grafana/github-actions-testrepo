@@ -18,7 +18,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: backport_check
+          ref: milestone_check_closed_issues
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
