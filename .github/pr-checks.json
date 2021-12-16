@@ -8,7 +8,7 @@
   },
   {
     "type": "check-backport",
-    "targetUrl": "https://github.com/grafana/grafana/blob/main/contribute/merge-pull-request.md#assign-a-milestone",
+    "targetUrl": "https://github.com/grafana/grafana/blob/main/contribute/merge-pull-request.md#should-the-pull-request-be-backported",
     "skipLabels": [ "backport", "no-backport"]
   }
 ]
