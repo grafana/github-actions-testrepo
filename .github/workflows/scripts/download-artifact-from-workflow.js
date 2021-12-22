@@ -4,7 +4,7 @@ module.exports = async ({ github, context, core, runId }) => {
 
     const { owner, repo } = context.repo;
     
-    const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+    const { artifacts } = await github.rest.actions.listWorkflowRunArtifacts({
         owner, 
         repo, 
         run_id: runId,
