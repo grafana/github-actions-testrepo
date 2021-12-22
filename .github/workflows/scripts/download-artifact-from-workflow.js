@@ -30,8 +30,7 @@ module.exports = async ({ github, context, core, runId }) => {
     const admZip = new AdmZip(Buffer.from(zip.data));
     admZip.extractAllTo(dir, true);
 
-    const content = readFile(fs, `${dir}/result.json`);
-    console.log('CONTNET', content);
+    const content = await readFile(fs, `${dir}/result.json`);
     return JSON.parse(content);
 }
 
