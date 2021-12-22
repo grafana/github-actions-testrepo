@@ -31,7 +31,9 @@ module.exports = async ({ github, context, core, runId }) => {
     admZip.extractAllTo(dir, true);
 
     const content = await readFile(fs, `${dir}/result.json`);
-    return JSON.parse(content);
+    const result = JSON.parse(content);
+
+    core.setOutput('message', result.message);
 }
 
 async function mkdir(fs, path) {

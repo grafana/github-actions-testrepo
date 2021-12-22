@@ -27,11 +27,11 @@ jobs:
         script: |
           const runId = "${{github.event.workflow_run.id }}";
           const script = require('./.github/workflows/scripts/download-artifact-from-workflow.js');
-          return await script({ github, context, core, runId });
+          await script({ github, context, core, runId });
 
     - name: Comment on PR
       uses: marocchino/sticky-pull-request-comment@v2
       with:
         number: ${{ github.event.workflow_run.pull_requests[0].number }}
         message: |
-          ${{steps.download-artifact.outputs.result}}
+          ${{steps.download-artifact.outputs.message}}
