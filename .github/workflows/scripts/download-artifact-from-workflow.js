@@ -10,7 +10,7 @@ module.exports = async ({ github, context, core, runId }) => {
         run_id: runId,
     });
 
-    console.log('RESPONSE'. JSON.stringify(response));
+    console.log('RESPONSE', JSON.stringify(response));
 
     const artifact = response.artifacts.find(a => a.name === 'message');
     
