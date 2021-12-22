@@ -4,13 +4,15 @@ module.exports = async ({ github, context, core, runId }) => {
 
     const { owner, repo } = context.repo;
     
-    const { artifacts } = await github.rest.actions.listWorkflowRunArtifacts({
+    const response = await github.rest.actions.listWorkflowRunArtifacts({
         owner, 
         repo, 
         run_id: runId,
     });
 
-    const artifact = artifacts.find(a => a.name === 'message');
+    console.log('RESPONSE'. JSON.stringify(response));
+
+    const artifact = response.artifacts.find(a => a.name === 'message');
     
     if (!artifact) {
         core.restFailed('Could not find artifact in source workflow');
