@@ -30,7 +30,8 @@ module.exports = async ({ github, context, core, runId }) => {
     const admZip = new AdmZip(Buffer.from(zip.data));
     admZip.extractAllTo(dir, true);
 
-    return `${dir}/result.json`;
+    const content = readFile(fs, `${dir}/result.json`);
+    return JSON.parse(content);
 }
 
 async function mkdir(fs, path) {
@@ -38,6 +39,15 @@ async function mkdir(fs, path) {
         fs.mkdir(path, { recursive: true }, (error) => {
             if (error) return reject(error);
             return resolve();
+        });
+    });
+}
+
+async function readFile(fs, path) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, (error, data) => {
+            if (error) return reject(error);
+            return resolve(data);
         });
     });
 }
