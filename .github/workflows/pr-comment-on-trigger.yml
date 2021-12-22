@@ -11,25 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Debug
+    - name: Setup environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+    - run: npm install adm-zip
+
+    - name: Download artifact
       uses: actions/github-script@v5
       with:
         script: |
-          console.log(JSON.stringify({
-            workflow_run_event: "${{github.event.workflow_run.event }}",
-            workflow_run_conclusion: "${{github.event.workflow_run.conclusion }}",
-            workflow_run_id: ${{github.event.workflow_run.id }},
-            workflow_run_url: "${{github.event.workflow_run.url }}",
-            pull_request_id: "${{github.event.workflow_run.pull_requests[0].id}}",
-            pull_request_number: "${{github.event.workflow_run.pull_requests[0].number}}",
-            pull_request_url: "${{github.event.workflow_run.pull_requests[0].url}}",
-          }, null, 4));
-
-    - name: Get artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: message
-
+          const runId = "${{github.event.workflow_run.id }}";
+          const script = require('./github/workflows/scripts/download-artifact-from-workflow.js');
+          return await script({ github, context, core, runId });
+        
     - name: display downloads
       run: ls -R
 
