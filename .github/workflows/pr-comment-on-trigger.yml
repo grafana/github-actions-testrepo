@@ -29,6 +29,8 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: message
+
+    - name: display downloads
       run: ls -R
 
     - name: Comment on PR
