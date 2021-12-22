@@ -1,0 +1,20 @@
+name: pr-trigger-workflow-in-main
+
+on: pull_request
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Comment to append from script in main
+      run: |
+          mkdir -p ./output
+          echo "{ \"message\": \"hello world!\" }" > ./output/result.json
+
+    - name: Upload check output as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: message
+        path: output/
