@@ -22,7 +22,7 @@ jobs:
       with:
         script: |
           const runId = "${{github.event.workflow_run.id }}";
-          const script = require('./github/workflows/scripts/download-artifact-from-workflow.js');
+          const script = require('./.github/workflows/scripts/download-artifact-from-workflow.js');
           return await script({ github, context, core, runId });
         
     - name: display downloads
