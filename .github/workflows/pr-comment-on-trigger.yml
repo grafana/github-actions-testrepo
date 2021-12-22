@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Comment on PR
+    - name: Debug
       uses: actions/github-script@v5
       with:
         script: |
@@ -20,19 +20,20 @@ jobs:
             workflow_run_conclusion: "${{github.event.workflow_run.conclusion }}",
             workflow_run_id: ${{github.event.workflow_run.id }},
             workflow_run_url: "${{github.event.workflow_run.url }}",
-            pull_requests: "${{github.event.workflow_run.pull_requests[0]}}",
+            pull_request_id: "${{github.event.workflow_run.pull_requests[0].id}}",
+            pull_request_number: "${{github.event.workflow_run.pull_requests[0].number}}",
+            pull_request_url: "${{github.event.workflow_run.pull_requests[0].url}}",
           }, null, 4));
 
-    # - name: Comment on PR
-    #   if: ${{ steps.breaking-changes.outputs.is_breaking == 1 }}
-    #   uses: marocchino/sticky-pull-request-comment@v2
-    #   with:
-    #     number: ${{ github.event.number }}
-    #     message: |
-    #       ⚠️ &nbsp;&nbsp;**Possible breaking changes**
+    - name: Get artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: message
+      run: ls -R
 
-    #       _(Open the links below in a new tab to go to the correct steps)_
-
-    #       ${{ steps.breaking-changes.outputs.message }}
-
-    #       [Check console output](${{steps.get-job-link.outputs.result}})
+    - name: Comment on PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        number: ${{ github.event.workflow_run.pull_requests[0].number }}
+        message: |
+          This is a comment from the "pr-comment-on-trigger" from main
