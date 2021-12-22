@@ -1,7 +1,7 @@
-const AdmZip = require('adm-zip');
-const fs = require('fs');
-
 module.exports = async ({ github, context, core, runId }) => {
+    const AdmZip = require('adm-zip');
+    const fs = require('fs');
+
     const { owner, repo } = context.repo;
     
     const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -25,7 +25,7 @@ module.exports = async ({ github, context, core, runId }) => {
     });
 
     const dir = './output';
-    await mkdir(dir);
+    await mkdir(fs, dir);
 
     const admZip = new AdmZip(Buffer.from(zip.data));
     admZip.extractAllTo(dir, true);
@@ -33,7 +33,7 @@ module.exports = async ({ github, context, core, runId }) => {
     return `${dir}/result.json`;
 }
 
-async function mkdir(path) {
+async function mkdir(fs, path) {
     return new Promise((resolve, reject) => {
         fs.mkdir(path, { recursive: true }, (error) => {
             if (error) return reject(error);
