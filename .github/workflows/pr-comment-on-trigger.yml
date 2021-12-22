@@ -20,6 +20,7 @@ jobs:
             workflow_run_conclusion: "${{github.event.workflow_run.conclusion }}",
             workflow_run_id: ${{github.event.workflow_run.id }},
             workflow_run_url: "${{github.event.workflow_run.url }}",
+            pull_requests: "${{github.event.workflow_run.pull_requests[0]}}",
           }, null, 4));
 
     # - name: Comment on PR
