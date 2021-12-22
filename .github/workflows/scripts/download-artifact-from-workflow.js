@@ -33,7 +33,9 @@ module.exports = async ({ github, context, core, runId }) => {
     const content = await readFile(fs, `${dir}/result.json`);
     const result = JSON.parse(content);
 
-    core.setOutput('message', result.message);
+    for (const property in result) {
+        core.setOutput(property, result[property]);
+    }
 }
 
 async function mkdir(fs, path) {
