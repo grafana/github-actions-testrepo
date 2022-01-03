@@ -11,32 +11,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16
-        
-    - name: Download artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: message
-        path: path/to/artifact
-        
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: path/to/artifact
-
-    - name: Parse artifact
+    - name: 'Download artifact'
       uses: actions/github-script@v5
-      id: parse-artifact
       with:
         script: |
           const fs = require('fs');
 
-          const content = fs.readFileSync(`path/to/artifact/result.json`);
+          const { owner, repo } = context.repo;
+          const runId = "${{ github.event.workflow_run.id }}";
+          const artifactName = "message";
+          const artifacts = await github.actions.listWorkflowRunArtifacts({
+              owner,
+              repo,
+              run_id: runId,
+          });
+          const artifact = artifacts.data.artifacts.find(a => a.name === artifactName);
+        
+          if (!artifact) {
+              throw new Error(`Could not find artifact ${ artifactName } in workflow (${ runId })`);
+          }
+
+          const download = await github.actions.downloadArtifact({
+              owner,
+              repo,
+              artifact_id: artifact.id,
+              archive_format: 'zip',
+          });
+
+          fs.writeFileSync('${{ github.workspace }}/tmp/${ artifactName }.zip', Buffer.from(download.data));
+  
+    - name: Unzip artifact
+      run: unzip pr.zip
+
+    - name: Parse artifact
+      id: parse-artifact
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const fs = require('fs');
+
+          const content = fs.readFileSync(`tmp/result.json`);
           const result = JSON.parse(content);
 
           for (const property in result) {
