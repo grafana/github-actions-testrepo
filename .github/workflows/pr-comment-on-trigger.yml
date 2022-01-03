@@ -45,7 +45,7 @@ jobs:
       run: ls -lah '${{ github.workspace }}/tmp'
 
     - name: Unzip artifact
-      run: unzip '${{ github.workspace }}/tmp/message.zip' '${{ github.workspace }}/tmp/'
+      run: unzip '${{ github.workspace }}/tmp/message.zip' -d '${{ github.workspace }}/tmp/'
 
     - name: DEBUG
       run: ls -lah '${{ github.workspace }}/tmp'
