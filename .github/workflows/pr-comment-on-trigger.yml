@@ -9,6 +9,9 @@ jobs:
   notify:
     name: pr-comment-on-trigger
     runs-on: ubuntu-latest
+    env:
+      ARTIFACT_FOLDER: '${{ github.workspace }}/tmp'
+      ARTIFACT_NAME: 'message'
 
     steps:
     - name: 'Download artifact'
@@ -19,7 +22,8 @@ jobs:
 
           const { owner, repo } = context.repo;
           const runId = "${{ github.event.workflow_run.id }}";
-          const artifactName = "message";
+          const artifactName = process.env.ARTIFACT_NAME;
+          const artifactFolder = process.env.ARTIFACT_FOLDER;
           const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
               owner,
               repo,
@@ -38,20 +42,11 @@ jobs:
               archive_format: 'zip',
           });
 
-          fs.mkdirSync('${{ github.workspace }}/tmp', { recursive: true });
-          fs.writeFileSync(`${{ github.workspace }}/tmp/${ artifactName }.zip`, Buffer.from(download.data));
+          fs.mkdirSync(artifactFolder, { recursive: true });
+          fs.writeFileSync(`${ artifactFolder }/${ artifactName }.zip`, Buffer.from(download.data));
   
-    - name: DEBUG
-      run: ls -lah '${{ github.workspace }}/tmp'
-
     - name: Unzip artifact
-      run: unzip '${{ github.workspace }}/tmp/message.zip' -d '${{ github.workspace }}/tmp/'
-
-    - name: DEBUG
-      run: ls -lah '${{ github.workspace }}/tmp'
-
-    - name: DEBUG
-      run: ls -lah '${{ github.workspace }}'
+      run: unzip "${ARTIFACT_FOLDER}/${ARTIFACT_NAME}.zip" -d "${ARTIFACT_FOLDER}"
 
     - name: Parse artifact
       id: parse-artifact
@@ -60,7 +55,8 @@ jobs:
         script: |
           const fs = require('fs');
 
-          const content = fs.readFileSync(`${{ github.workspace }}/tmp/result.json`);
+          const artifactFolder = process.env.ARTIFACT_FOLDER;
+          const content = fs.readFileSync(`${ artifactFolder }/result.json`);
           const result = JSON.parse(content);
 
           for (const property in result) {
