@@ -18,11 +18,19 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16
-    - run: npm install -g adm-zip
+        
+
+    
+    - name: NPM
+      env:
+        NPM_CONFIG_PREFIX: "~/.npm-global"
+      run: npm install -g adm-zip
 
     - name: Download artifact
       uses: actions/github-script@v5
       id: download-artifact
+      env:
+        NPM_CONFIG_PREFIX: "~/.npm-global"
       with:
         script: |
           const runId = "${{github.event.workflow_run.id }}";
