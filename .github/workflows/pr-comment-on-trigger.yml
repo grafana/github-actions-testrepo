@@ -38,6 +38,7 @@ jobs:
               archive_format: 'zip',
           });
 
+          fs.mkdirSync('${{ github.workspace }}/tmp', { recursive: true });
           fs.writeFileSync('${{ github.workspace }}/tmp/${ artifactName }.zip', Buffer.from(download.data));
   
     - name: Unzip artifact
