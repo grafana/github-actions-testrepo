@@ -42,7 +42,7 @@ jobs:
           fs.writeFileSync('${{ github.workspace }}/tmp/${ artifactName }.zip', Buffer.from(download.data));
   
     - name: Unzip artifact
-      run: unzip pr.zip
+      run: unzip message.zip
 
     - name: Parse artifact
       id: parse-artifact
