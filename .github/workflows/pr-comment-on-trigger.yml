@@ -57,7 +57,7 @@ jobs:
         script: |
           const fs = require('fs');
 
-          const content = fs.readFileSync(`tmp/result.json`);
+          const content = fs.readFileSync(`${{ github.workspace }}/tmp/result.json`);
           const result = JSON.parse(content);
 
           for (const property in result) {
