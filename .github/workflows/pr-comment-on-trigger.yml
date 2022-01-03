@@ -41,8 +41,11 @@ jobs:
           fs.mkdirSync('${{ github.workspace }}/tmp', { recursive: true });
           fs.writeFileSync('${{ github.workspace }}/tmp/${ artifactName }.zip', Buffer.from(download.data));
   
+    - name: DEBUG
+      run: ls -lah '${{ github.workspace }}/tmp'
+
     - name: Unzip artifact
-      run: unzip tmp/message.zip
+      run: unzip '${{ github.workspace }}/tmp/message.zip'
 
     - name: Parse artifact
       id: parse-artifact
