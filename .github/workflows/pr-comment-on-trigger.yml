@@ -39,7 +39,7 @@ jobs:
           });
 
           fs.mkdirSync('${{ github.workspace }}/tmp', { recursive: true });
-          fs.writeFileSync('${{ github.workspace }}/tmp/${ artifactName }.zip', Buffer.from(download.data));
+          fs.writeFileSync(`${{ github.workspace }}/tmp/${ artifactName }.zip`, Buffer.from(download.data));
   
     - name: DEBUG
       run: ls -lah '${{ github.workspace }}/tmp'
