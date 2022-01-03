@@ -20,7 +20,7 @@ jobs:
           const { owner, repo } = context.repo;
           const runId = "${{ github.event.workflow_run.id }}";
           const artifactName = "message";
-          const artifacts = await github.actions.listWorkflowRunArtifacts({
+          const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
               owner,
               repo,
               run_id: runId,
@@ -31,7 +31,7 @@ jobs:
               throw new Error(`Could not find artifact ${ artifactName } in workflow (${ runId })`);
           }
 
-          const download = await github.actions.downloadArtifact({
+          const download = await github.rest.actions.downloadArtifact({
               owner,
               repo,
               artifact_id: artifact.id,
