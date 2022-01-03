@@ -50,6 +50,9 @@ jobs:
     - name: DEBUG
       run: ls -lah '${{ github.workspace }}/tmp'
 
+    - name: DEBUG
+      run: ls -lah '${{ github.workspace }}'
+
     - name: Parse artifact
       id: parse-artifact
       uses: actions/github-script@v5
