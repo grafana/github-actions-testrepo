@@ -13,14 +13,14 @@ jobs:
       id: message
       run: |
           MESSAGE="@foo/bar"
-          OUTPUT="**\`${MESSAGE}\`** has breaking changes."
+          OUTPUT="**\\\`${MESSAGE}\\\`** has breaking changes."
 
           echo "::set-output name=message::$OUTPUT"
 
     - name: Persist message
       run: |
           mkdir -p ./output
-          echo '{ "message": "${{ steps.message.outputs.message }}" }' > ./output/result.json
+          echo "{ \"message\": \"${{ steps.message.outputs.message }}\" }" > ./output/result.json
 
     - name: Upload check output as artifact
       uses: actions/upload-artifact@v2
