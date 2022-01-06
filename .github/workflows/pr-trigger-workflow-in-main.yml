@@ -20,7 +20,7 @@ jobs:
     - name: Persist message
       run: |
           mkdir -p ./output
-          echo "{ \"message\": \"${{ steps.message.outputs.message }}\" }" > ./output/result.json
+          echo '{ "message": "${{ steps.message.outputs.message }}" }' > ./output/result.json
 
     - name: Upload check output as artifact
       uses: actions/upload-artifact@v2
