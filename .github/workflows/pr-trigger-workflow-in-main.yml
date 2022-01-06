@@ -8,10 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Comment to append from script in main
+    # Tyring to test out how escaping "\" characters work
+    - name: Create message
+      id: message
+      run: |
+          MESSAGE="@foo/bar"
+          OUTPUT="**\`${MESSAGE}\`** has breaking changes."
+
+          echo "::set-output name=message::$OUTPUT"
+
+    - name: Persist message
       run: |
           mkdir -p ./output
-          echo "{ \"message\": \"hello world!\" }" > ./output/result.json
+          echo "{ \"message\": \"${{ steps.message.outputs.message }}\" }" > ./output/result.json
 
     - name: Upload check output as artifact
       uses: actions/upload-artifact@v2
