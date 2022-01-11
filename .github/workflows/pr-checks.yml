@@ -20,7 +20,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: backport_pr_check
+          ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
