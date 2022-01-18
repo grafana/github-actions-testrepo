@@ -14,9 +14,9 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: chore/fix/jest
+          ref: main
       - name: Install Actions
-        run: npm install --only=production --prefix ./actions
+        run: npm install --production --prefix ./actions
       - name: Run Commands
         uses: ./actions/commands
         with:
