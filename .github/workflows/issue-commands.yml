@@ -1,9 +1,11 @@
-name: Run commands when issues are labeled or comments added
+name: Run commands when issues and pull requests are labeled
 on:
   issues:
     types: [labeled, opened]
   issue_comment:
     types: [created]
+  pull_request:
+    types: [labeled]
 
 jobs:
   main:
