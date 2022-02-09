@@ -4,7 +4,9 @@ on:
     types:
       - closed
       - labeled
-
+concurrency:
+  group: backport-pr-creator
+  cancel-in-progress: true
 jobs:
   main:
     runs-on: ubuntu-latest
