@@ -11,7 +11,7 @@ on:
       - milestoned
       - demilestoned
 concurrency:
-  group: pr-checks
+  group: pr-checks-${{ github.event.pull_request.number || github.event.issues.issue.number }}
 jobs:
   main:
     runs-on: ubuntu-latest
