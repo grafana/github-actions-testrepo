@@ -17,7 +17,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: fix/type-missmatch
+          ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
