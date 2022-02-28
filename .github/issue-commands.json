@@ -17,6 +17,14 @@
     }
   },
   {
+    "type": "label",
+    "name": "plugins",
+    "action": "removeFromProject",
+    "removeFromProject": {
+      "url": "https://github.com/orgs/grafana/projects/76"      
+    }
+  },
+  {
     "type": "comment",
     "name": "duplicate",
     "allowUsers": [],
