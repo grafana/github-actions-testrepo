@@ -1,7 +1,7 @@
 name: Run commands when issues and pull requests are labeled
 on:
   issues:
-    types: [labeled, opened]
+    types: [labeled, opened, unlabeled]
   issue_comment:
     types: [created]
   pull_request:
