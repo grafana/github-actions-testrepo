@@ -10,9 +10,12 @@ concurrency:
   group: pr-issue-commands-${{ github.event.number }}
 jobs:
   main:
-    if: ${{ !github.event.issue.pull_request || github.event.pull_request.head.repo.full_name == github.repository }}
+    if: ${{ github.event.issue.pull_request == false || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        run: |
+          echo "${{ github.event }}"
       - name: Checkout Actions
         uses: actions/checkout@v2
         with:
