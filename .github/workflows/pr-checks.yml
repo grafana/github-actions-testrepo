@@ -24,7 +24,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: feat_changelog_check
+          ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
