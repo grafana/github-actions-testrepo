@@ -8,13 +8,13 @@
   },
   {
     "type": "check-backport",
-    "title": "Existing Backport Check",
+    "title": "Backport Check",
     "targetUrl": "https://github.com/grafana/grafana/blob/main/contribute/merge-pull-request.md#should-the-pull-request-be-backported",
     "skipLabels": [ "backport", "no-backport"]
   },
   {
     "type": "check-label",
-    "title": "New Backport Check",
+    "title": "New Label Backport Check",
     "labels": {
       "exists": "Backport enabled",
       "notExists": "Backport decision needed",
@@ -32,7 +32,7 @@
     "targetUrl": "https://github.com/grafana/grafana/blob/main/contribute/merge-pull-request.md#should-the-pull-request-be-backported"
   },
   {
-    "type": "check-label",
+    "type": "check-changelog",
     "title": "Changelog Check",
     "labels": {
       "exists": "Changelog enabled",
@@ -41,12 +41,15 @@
         "add to changelog"
       ]
     },
+    "breakingChangeLabels": [
+      "breaking-change"
+    ],
     "skip": {
       "message": "Changelog skipped",
       "matches": [
         "no-changelog"
       ]
     },
-    "targetUrl": "https://github.com/grafana/grafana/blob/main/contribute/merge-pull-request.md#should-the-pull-request-be-backported"
+    "targetUrl": "https://github.com/grafana/grafana/blob/main/contribute/merge-pull-request.md#include-in-changelog-and-release-notes"
   }
 ]
