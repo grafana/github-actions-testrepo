@@ -13,7 +13,7 @@
     "name": "plugins",
     "action": "addToProject",
     "addToProject": {
-      "url": "https://github.com/orgs/grafana/projects/76"      
+      "url": "https://github.com/orgs/grafana/projects/76"
     }
   },
   {
@@ -21,7 +21,7 @@
     "name": "plugins",
     "action": "removeFromProject",
     "removeFromProject": {
-      "url": "https://github.com/orgs/grafana/projects/76"      
+      "url": "https://github.com/orgs/grafana/projects/76"
     }
   },
   {
@@ -38,5 +38,13 @@
     "removeLabel": "bot/question",
     "action": "close",
     "comment": "Please ask your question on [community.grafana.com/](https://community.grafana.com/). To avoid having your issue closed in the future, please read our [CONTRIBUTING](https://github.com/grafana/grafana/blob/main/CONTRIBUTING.md) guidelines.\n\nHappy graphing!"
+  },
+  {
+    "type": "allissuestoproject",
+    "action": "addToProject",
+    "addToProject": {
+      "url": "https://github.com/orgs/grafana/projects/125",
+      "column": "The Todo Column"
+    }
   }
 ]

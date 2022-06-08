@@ -33,13 +33,17 @@
   },
   {
     "type": "author",
-    "memberOf": { "org": "grafana" },
+    "memberOf": {
+      "org": "grafana"
+    },
     "action": "updateLabel",
     "addLabel": "author/grafana"
   },
   {
     "type": "author",
-    "notMemberOf": { "org": "prometheus" },
+    "notMemberOf": {
+      "org": "prometheus"
+    },
     "action": "updateLabel",
     "addLabel": "author/not-grafana"
   },
@@ -49,14 +53,6 @@
     "action": "addToProject",
     "addToProject": {
       "url": "https://github.com/orgs/grafana/projects/76"
-    }
-  },
-  {
-    "type": "allissuestoproject",
-    "action": "addToProject",
-    "addToProject": {
-      "url": "https://github.com/orgs/grafana/projects/125",
-      "column": "The Todo Column"
     }
   }
 ]
