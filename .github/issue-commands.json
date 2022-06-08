@@ -43,7 +43,7 @@
     "type": "allissuestoproject",
     "action": "addToProject",
     "addToProject": {
-      "url": "https://github.com/orgs/grafana/projects/125",
+      "url": "https://github.com/orgs/grafana/projects/167",
       "column": "The Todo Column"
     }
   }
