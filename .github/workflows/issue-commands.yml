@@ -19,7 +19,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: chore/refactor-remove-from-project
+          ref: add-wildcard-labels-command-support
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands

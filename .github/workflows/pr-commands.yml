@@ -3,7 +3,7 @@ on:
   pull_request_target:
     types:
       - opened
-      - synchronize      
+      - synchronize
 
 jobs:
   main:
@@ -14,7 +14,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: add-wildcard-labels-command-support
+          ref: main
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
