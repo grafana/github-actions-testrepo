@@ -7,8 +7,8 @@ on:
 jobs:
   schedule-test:
     runs-on: ubuntu-latest
-    steps:    
+    steps:       
     - name: schedule-test
-      #if: contains(env.GITHUB_REPOSITORY, 'grafana/github-actions-testrepo')
+      if: github.repository == 'grafana/github-actions-testrepo'
       run: | 
           echo "running"
