@@ -1,0 +1,14 @@
+name: schedule-test
+
+on:
+  schedule:
+  - cron:  "*/1 * * * *"
+  workflow_dispatch:
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:    
+    - name: repo-sync      
+      run: | 
+          echo "running"
