@@ -6,9 +6,9 @@ on:
 
 jobs:
   schedule-test:
+    if: github.repository == 'grafana/github-actions-testrepos'
     runs-on: ubuntu-latest
     steps:
-    - name: schedule-test
-      if: github.repository == 'grafana/github-actions-testrepos'
+    - name: schedule-test      
       run: | 
           echo "running"
