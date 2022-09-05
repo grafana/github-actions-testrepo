@@ -6,9 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  repo-sync:
+  schedule-test:
     runs-on: ubuntu-latest
     steps:    
-    - name: repo-sync      
+    - name: schedule-test
+      if: contains(env.GITHUB_REPOSITORY, 'grafana/github-actions-testrepo')
       run: | 
           echo "running"
