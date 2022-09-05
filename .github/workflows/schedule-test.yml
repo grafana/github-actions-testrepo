@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: schedule-test
-      if: github.repository == 'grafana/github-actions-testrepo'
+      if: github.repository == 'grafana/github-actions-testrepos'
       run: | 
           echo "running"
