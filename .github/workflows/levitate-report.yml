@@ -67,7 +67,7 @@ jobs:
 
       # Skip all further steps if the "Detect" workflow was skipped
       - name: Check if the workflow should be skipped
-        if: ${{ steps.levitate-run.outputs.shouldSkip == true }}
+        if: ${{ steps.levitate-run.outputs.shouldSkip == "true" }}
         run: echo "Skipping." && exit 0
         shell: bash
 
