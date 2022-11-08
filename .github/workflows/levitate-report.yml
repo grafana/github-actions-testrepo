@@ -73,10 +73,12 @@ jobs:
 
       # Continue reporting...
       - name: Reporting
+        if: steps.levitate-run.outputs.shouldSkip != 'true'
         run: echo "Reporting the compatibility detection..."
 
       # Comment on Pull Request
       - name: Comment on PR
+        if: steps.levitate-run.outputs.shouldSkip != 'true' && steps.levitate-run.outputs.shouldSkip != 'ANOTHER DUMMY CHECK'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ steps.levitate-run.outputs.pr_number }}
