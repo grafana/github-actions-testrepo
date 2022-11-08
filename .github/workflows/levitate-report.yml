@@ -81,6 +81,11 @@ jobs:
         if: steps.levitate-run.outputs.testNumber == '123'
         run: echo "Parsed as string."
 
+      # TEST
+      - name: Does it actually work?
+        if: steps.levitate-run.outputs.testNumber == '1234'
+        run: echo "It's not working at all."
+
       # Continue reporting...
       - name: Reporting
         if: steps.levitate-run.outputs.shouldSkip != 'true'
