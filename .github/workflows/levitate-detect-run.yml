@@ -26,7 +26,7 @@ jobs:
       - name: Persisting the check output
         run: |
           mkdir -p ./levitate
-          echo "{ \"exit_code\": 0, \"message\": \"Some useful levitate message!\" }" > ./levitate/result.json
+          echo "{ \"exit_code\": 0, \"message\": \"Some useful levitate message!\", \"pr_number\": \"${{ github.event.pull_request.number }}\" }" > ./levitate/result.json
 
       # Upload artifact (so it can be used in the more privileged "report" workflow)
       - name: Upload check output as artifact

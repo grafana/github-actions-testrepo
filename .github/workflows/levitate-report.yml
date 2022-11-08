@@ -74,3 +74,13 @@ jobs:
       # Continue reporting...
       - name: Reporting
         run: echo "Reporting the compatibility detection..."
+
+      # Comment on Pull Request
+      - name: Comment on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.levitate-run.outputs.pr_number }}
+          message: |
+            ⚠️ &nbsp;&nbsp;**Possible breaking changes**
+
+            _(Open the links below in a new tab to go to the correct steps)_

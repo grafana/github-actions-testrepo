@@ -21,7 +21,7 @@ jobs:
       - name: Persisting the check output
         run: |
           mkdir -p ./levitate
-          echo "{ \"shouldSkip\": true }" > ./levitate/result.json
+          echo "{ \"shouldSkip\": true, \"pr_number\": \"${{ github.event.pull_request.number }}\" }" > ./levitate/result.json
 
       # Upload artifact (so it can be used in the more privileged "report" workflow)
       - name: Upload check output as artifact
