@@ -71,6 +71,16 @@ jobs:
         run: echo "Skipping." && exit 0
         shell: bash
 
+      # TEST
+      - name: Parsed as number
+        if: steps.levitate-run.outputs.testNumber == 123
+        run: echo "Parsed as number."
+
+      # TEST
+      - name: Parsed as string
+        if: steps.levitate-run.outputs.testNumber == '123'
+        run: echo "Parsed as string."
+
       # Continue reporting...
       - name: Reporting
         if: steps.levitate-run.outputs.shouldSkip != 'true'
