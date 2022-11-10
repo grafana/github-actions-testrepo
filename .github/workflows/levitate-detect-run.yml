@@ -36,10 +36,10 @@ jobs:
 
       - name: Print out test output parameters
         run: |
-          echo "Script/Param 1: ${{ steps.test-script.outputs.param_1 }}
-          echo "Script/Param 2: ${{ steps.test-script.outputs.param_2 }}
-          echo "Inline BASH: ${{ steps.test-inline-bash.outputs.param_1 }}
-          echo "Inline BASH (quotes): ${{ steps.test-inline-bash-quotes.outputs.param_1 }}
+          echo "Script/Param 1: ${{ steps.test-script.outputs.param_1 }}"
+          echo "Script/Param 2: ${{ steps.test-script.outputs.param_2 }}"
+          echo "Inline BASH: ${{ steps.test-inline-bash.outputs.param_1 }}"
+          echo "Inline BASH (quotes): ${{ steps.test-inline-bash-quotes.outputs.param_1 }}"
         shell: bash
 
       # Build and persist output as a JSON
