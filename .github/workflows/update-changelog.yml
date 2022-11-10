@@ -14,7 +14,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: chore/node-16      
+          ref: feat/add-default-labels-to-changelog-pr
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run update changelog
