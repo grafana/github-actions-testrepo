@@ -22,6 +22,26 @@ jobs:
       - name: Sample step
         run: echo "Running the DETECT job."
 
+      - name: Test output parameters with a script
+        id: test-script
+        run: ./scripts/test-script.sh
+
+      - name: Test output parameters with inline bash
+        id: test-inline-bash
+        run: echo "param_1=foo" >> $GITHUB_OUTPUT
+
+      - name: Test output parameters with inline bash using quotes (for shellcheck)
+        id: test-inline-bash-quotes
+        run: echo "param_1=foo" >> "$GITHUB_OUTPUT"
+
+      - name: Print out test output parameters
+        run: |
+          echo "Script/Param 1: ${{ steps.test-script.outputs.param_1 }}
+          echo "Script/Param 2: ${{ steps.test-script.outputs.param_2 }}
+          echo "Inline BASH: ${{ steps.test-inline-bash.outputs.param_1 }}
+          echo "Inline BASH (quotes): ${{ steps.test-inline-bash-quotes.outputs.param_1 }}
+        shell: bash
+
       # Build and persist output as a JSON
       - name: Persisting the check output
         run: |
@@ -34,3 +54,7 @@ jobs:
         with:
           name: levitate
           path: levitate/
+
+      - name: Exit
+        run: exit ${{ steps.test-script.outputs.param_1 }}
+        shell: bash
