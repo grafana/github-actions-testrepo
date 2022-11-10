@@ -24,7 +24,7 @@ jobs:
 
       - name: Test output parameters with a script
         id: test-script
-        run: ./scripts/test-script.sh
+        run: ./.github/workflows/scripts/test-script.sh
 
       - name: Test output parameters with inline bash
         id: test-inline-bash
