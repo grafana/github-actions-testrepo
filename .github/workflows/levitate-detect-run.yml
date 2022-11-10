@@ -56,5 +56,5 @@ jobs:
           path: levitate/
 
       - name: Exit
-        run: exit ${{ steps.test-script.outputs.param_1 }}
+        run: exit ${{ steps.test-script.outputs.param_2 }}
         shell: bash
