@@ -45,6 +45,13 @@
     "addToProject": {
       "url": "https://github.com/orgs/grafana/projects/167",
       "column": "The Todo Column"
+    },
+  {
+    "type": "edited",
+    "action": "addToProject",
+    "addToProject": {
+      "url": "https://github.com/orgs/grafana/projects/313",
+      "column": "In Progress"
     }
   }
 ]
