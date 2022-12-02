@@ -22,10 +22,10 @@ jobs:
             query($org: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
                 issue (number: ${{ github.event.issue.number }}) {
-                  projectCards {
+                  projectItems {
                     nodes {
                       project {
-                        name
+                        number
                       }
                     }
                   }
