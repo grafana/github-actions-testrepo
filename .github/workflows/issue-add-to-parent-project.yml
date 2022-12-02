@@ -11,13 +11,33 @@ jobs:
   add_to_parent_project:
     runs-on: ubuntu-latest
     steps:
-      - name: Get project data
+      - name: Get issue projects
+        env:
+          GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
+          ORGANIZATION: grafana
+          REPO: "github-actions-testrepo"
+          ISSUE: ${{ toJSON(github.event.issue) }}
+        run: |
+          gh api graphql -f query='
+            query($n: Int!) {
+              repository(name: $repo, owner: $org) {
+                issue (number: $number) {
+                  state
+                  title
+                  author {
+                    url
+                  }
+              }
+            }' -f repo=$REPO -F org=$ORGANIZATION -F number=$ISSUE
+            
+            echo Issue $ISSUE
+      - name: Get Platform UX project data
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
           ORGANIZATION: grafana
           PROJECT_NUMBER: 313
         run: |
-          project_data="$( gh api graphql -f query='
+          gh api graphql -f query='
             query($org: String!, $number: Int!) {
               organization(login: $org){
                 projectV2(number: $number) {
@@ -40,11 +60,10 @@ jobs:
                   }
                 }
               }
-            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER --jq '.data.organization.projectV2')"
+            }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
 
-          echo 'PROJECT_DATA='$project_data >> $GITHUB_ENV
-          echo 'PROJECT_ID='$project_data.id >> $GITHUB_ENV
-          echo 'DATE_FIELD_ID='$(project_data.fields.nodes[] | select(.name== "Date posted") | .id) >> $GITHUB_ENV
-          echo 'STATUS_FIELD_ID='$(project_data.fields.nodes[] | select(.name== "Status") | .id) >> $GITHUB_ENV
-          echo 'TODO_OPTION_ID='$(project_data.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id) >> $GITHUB_ENV
+          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
+          echo 'DATE_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Date posted") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'TODO_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
 
