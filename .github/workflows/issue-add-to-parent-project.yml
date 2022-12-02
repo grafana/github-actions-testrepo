@@ -1,0 +1,21 @@
+name: issue-add-to-parent-project
+
+on:
+  issues:
+    types: 
+      - edited
+    labels:
+      - 'type/question'
+    
+jobs:
+  add_to_parent_project:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.issue.projectV2(312)}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get project number
+        run: |
+          echo Issue number $NUMBER project $PROJECT
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+          PROJECT: ${{ github.event.issue.projectsV2 }}
