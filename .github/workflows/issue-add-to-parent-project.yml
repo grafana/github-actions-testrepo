@@ -17,14 +17,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
           ORGANIZATION: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
+          STATUS: "Status"
         run: |
           gh api graphql -f query='
-            query($org: String!, $repo: String!) {
+            query($org: String!, $repo: String!, $status: String!) {
               repository(name: $repo, owner: $org) {
                 issue (number: ${{ github.event.issue.number }}) {
                   projectItems(first:20) {
                     nodes {
-                      fieldValueByName("Status"),
+                      fieldValueByName($status),
                       project {
                         number,
                         title
@@ -33,7 +34,7 @@ jobs:
                   }
                 }
               }
-            }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
+            }' -f org=$ORGANIZATION -f repo=$REPO -f status=$STATUS > projects_data.json
             
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'EXISTS='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
