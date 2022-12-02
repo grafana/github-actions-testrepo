@@ -33,7 +33,7 @@ jobs:
               }
             }' -f org=$ORGANIZATION -f repo=$REPO > issue_data.json
             
-            echo 'ISSUE_DATA='$(issue_data.json) >> $GITHUB_ENV
+            echo 'ISSUE_DATA='${{ toJSON(issue_data.json) }} >> $GITHUB_ENV
       - name: Get Platform UX project data
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
