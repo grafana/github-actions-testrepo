@@ -9,6 +9,7 @@ on:
     
 jobs:
   add_to_parent_project:
+    if: github.event.issue.number > 0
     runs-on: ubuntu-latest
     steps:
       - name: Check if issue is already in board
