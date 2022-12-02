@@ -17,4 +17,4 @@ jobs:
           echo Issue number $NUMBER search $SEARCH
         env:
           NUMBER: ${{ github.event.issue.number }}
-          SEARCH: ${{ toJSON(github.event.issue) }}
+          SEARCH: ${{ toJSON(github.event.issue.projectCards) }}
