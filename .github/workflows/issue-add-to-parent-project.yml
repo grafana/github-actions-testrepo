@@ -10,11 +10,12 @@ on:
 jobs:
   add_to_parent_project:
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.projectV2(312)}}
+    if: ${{ github.event.issue}}
     steps:
       - name: Get project number
         run: |
-          echo Issue number $NUMBER project $PROJECT
+          echo Issue number $NUMBER project $PROJECT attributes $ISSUE
         env:
           NUMBER: ${{ github.event.issue.number }}
           PROJECT: ${{ github.event.issue.projectsV2 }}
+          ISSUE: ${{ github.event.issue }}
