@@ -25,7 +25,7 @@ jobs:
                 issue (number: ${{ github.event.issue.number }}) {
                   projectItems(first:20) {
                     nodes {
-                      fieldValueByName($status),
+                      fieldValueByName(name:$status),
                       project {
                         number,
                         title
