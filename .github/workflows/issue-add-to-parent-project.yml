@@ -19,7 +19,7 @@ jobs:
           ISSUEID: ${{ toJSON(github.event.issue.id) }}
         run: |
           gh api graphql -f query='
-            query($issue: Int!, $owner: String!, $repo: String!) {
+            query($issue: Int!, $org: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
                 issue (number: $issue) {
                   projectCards {
