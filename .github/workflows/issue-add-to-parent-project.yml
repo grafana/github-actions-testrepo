@@ -11,25 +11,27 @@ jobs:
   add_to_parent_project:
     runs-on: ubuntu-latest
     steps:
-      - name: Get issue projects
+      - name: Check if issue is already in board
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
           ORGANIZATION: grafana
           REPO: "github-actions-testrepo"
-          ISSUE: ${{ toJSON(github.event.issue) }}
           ISSUEID: ${{ toJSON(github.event.issue.id) }}
         run: |
           gh api graphql -f query='
-            query($n: Int!) {
+            query($issue: Int!, $owner: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
                 issue (number: $number) {
-                  state
-                  title
-                  author {
-                    url
+                  projectCards {
+                    nodes {
+                      project {
+                        name
+                      }
+                    }
                   }
+                }
               }
-            }' -f repo=$REPO -F org=$ORGANIZATION -F number=$ISSUEID > issue_data.json
+            }' -f repo=$REPO -f org=$ORGANIZATION -f number=$ISSUEID > issue_data.json
             
             echo 'ISSUE_DATA='$(issue_data.json) >> $GITHUB_ENV
       - name: Get Platform UX project data
