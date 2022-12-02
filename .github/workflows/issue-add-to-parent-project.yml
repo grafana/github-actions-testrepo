@@ -15,7 +15,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
           ORGANIZATION: grafana
-          PROJECT_NUMBER: 315
+          PROJECT_NUMBER: 313
         run: |
           project_data="$( gh api graphql -f query='
             query($org: String!, $number: Int!) {
