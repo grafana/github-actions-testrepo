@@ -19,4 +19,4 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           PROJECT: ${{ github.event.issue.projectV2 }}
           PROJECTS: ${{ github.event.issue.projectsNext }}
-          SEARCH: ${{ github.event.issue.projectsV2.query('child') }}
+          SEARCH: ${{ toJSON(github.event.issue.projectsV2) }}
