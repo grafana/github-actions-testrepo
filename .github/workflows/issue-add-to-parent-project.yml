@@ -17,12 +17,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
           ORGANIZATION: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
-          ISSUEID: ${{ github.event.issue.number }}
         run: |
           gh api graphql -f query='
-            query($issue: Int!, $org: String!, $repo: String!) {
+            query($org: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
-                issue (number: $issue) {
+                issue (number: ${{ github.event.repository.name }}) {
                   projectCards {
                     nodes {
                       project {
@@ -32,7 +31,7 @@ jobs:
                   }
                 }
               }
-            }' -f issue=$ISSUEID -f org=$ORGANIZATION -f repo=$REPO > issue_data.json
+            }' -f org=$ORGANIZATION -f repo=$REPO > issue_data.json
             
             echo 'ISSUE_DATA='$(issue_data.json) >> $GITHUB_ENV
       - name: Get Platform UX project data
