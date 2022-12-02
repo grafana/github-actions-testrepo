@@ -27,7 +27,7 @@ jobs:
                     nodes {
                       fieldValueByName(name:$status) {
                         ... on ProjectV2ItemFieldSingleSelectValue {
-                          id
+                          optionId
                           name
                         }
                       },
