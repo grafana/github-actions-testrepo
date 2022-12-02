@@ -16,7 +16,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
           ORGANIZATION: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
-          ISSUEID: ${{ toJSON(github.event.issue.number) }}
+          ISSUEID: ${{ github.event.issue.number }}
         run: |
           gh api graphql -f query='
             query($issue: Int!, $org: String!, $repo: String!) {
