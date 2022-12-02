@@ -14,9 +14,9 @@ jobs:
       - name: Check if issue is already in board
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
-          ORGANIZATION: grafana
-          REPO: "github-actions-testrepo"
-          ISSUEID: ${{ toJSON(github.event.issue.id) }}
+          ORGANIZATION: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          ISSUEID: ${{ toJSON(github.event.issue.number) }}
         run: |
           gh api graphql -f query='
             query($issue: Int!, $org: String!, $repo: String!) {
