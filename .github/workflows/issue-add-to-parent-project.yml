@@ -42,4 +42,4 @@ jobs:
               }
             }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER --jq '.data.organization.projectV2')"
 
-          echo 'Project data '$project_data >> $GITHUB_ENV
+          echo 'PROJECT_DATA='$project_data >> $GITHUB_ENV
