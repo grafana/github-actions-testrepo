@@ -21,7 +21,7 @@ jobs:
           gh api graphql -f query='
             query($org: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
-                issue (number: ${{ github.event.repository.name }}) {
+                issue (number: ${{ github.event.issue.number }}) {
                   projectCards {
                     nodes {
                       project {
