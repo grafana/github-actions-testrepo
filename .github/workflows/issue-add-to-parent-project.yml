@@ -43,3 +43,8 @@ jobs:
             }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER --jq '.data.organization.projectV2')"
 
           echo 'PROJECT_DATA='$project_data >> $GITHUB_ENV
+          echo 'PROJECT_ID='$project_data.id >> $GITHUB_ENV
+          echo 'DATE_FIELD_ID='$(project_data.fields.nodes[] | select(.name== "Date posted") | .id) >> $GITHUB_ENV
+          echo 'STATUS_FIELD_ID='$(project_data.fields.nodes[] | select(.name== "Status") | .id) >> $GITHUB_ENV
+          echo 'TODO_OPTION_ID='$(project_data.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id) >> $GITHUB_ENV
+
