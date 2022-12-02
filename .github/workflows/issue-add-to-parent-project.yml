@@ -14,7 +14,9 @@ jobs:
     steps:
       - name: Get project number
         run: |
-          echo Issue number $NUMBER search $SEARCH
+          echo Issue number $NUMBER projItems $PROJITEMS projNextItems $PROJNEXTITEMS proj $PROJ
         env:
           NUMBER: ${{ github.event.issue.number }}
-          SEARCH: ${{ toJSON(github.event.issue.projectCards) }}
+          PROJITEMS: ${{ toJSON(github.event.issue.projectItems) }}
+          PROJNEXTITEMS: ${{ toJSON(github.event.issue.projectNextItems) }}
+          PROJ: ${{ toJSON(github.event.issue.projectV2.312) }}
