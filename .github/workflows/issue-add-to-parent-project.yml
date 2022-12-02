@@ -31,7 +31,7 @@ jobs:
                   }
                 }
               }
-            }' -f org=$ORGANIZATION -f repo=$REPO --jq '.data.issue.projectItems.nodes')"
+            }' -f org=$ORGANIZATION -f repo=$REPO --jq '.data.repository.issue')"
             
             echo 'ISSUE_EXISTS='$item_exists >> $GITHUB_ENV
       - name: Get Platform UX project data
