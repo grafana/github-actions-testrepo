@@ -34,7 +34,7 @@ jobs:
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
-            echo 'EXISTS='$(jq '.data.repository.issue.projectItems.nodes[] | select(.number==312)' projects_data.json) >> $GITHUB_ENV
+            echo 'EXISTS='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==312)' projects_data.json) >> $GITHUB_ENV
       - name: Get Platform UX project data
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
