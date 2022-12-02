@@ -42,6 +42,6 @@ jobs:
               }
             }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
 
+          echo 'PROJECT_DATA='$(jq '.data.organization.projectV2' project_data.json) >> $GITHUB_ENV
           echo 'PROJECT_NAME='$(jq '.data.organization.projectV2.name' project_data.json) >> $GITHUB_ENV
-          echo 'STATUS_FIELD_NAME='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .name' project_data.json) >> $GITHUB_ENV
           echo 'WIP_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
