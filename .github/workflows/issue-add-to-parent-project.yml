@@ -14,8 +14,7 @@ jobs:
     steps:
       - name: Get project number
         run: |
-          echo Issue number $NUMBER project $PROJECT attributes $ISSUE
+          echo Issue number $NUMBER project $PROJECT
         env:
           NUMBER: ${{ github.event.issue.number }}
           PROJECT: ${{ github.event.issue.projectsV2 }}
-          ISSUE: ${{ github.event.issue }}
