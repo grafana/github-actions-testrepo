@@ -32,7 +32,7 @@ jobs:
                   }
                 }
               }
-            }' -f issue=${{ env.ISSUEID }} -f org=$ORGANIZATION -f repo=$REPO > issue_data.json
+            }' -f issue=$ISSUEID -f org=$ORGANIZATION -f repo=$REPO > issue_data.json
             
             echo 'ISSUE_DATA='$(issue_data.json) >> $GITHUB_ENV
       - name: Get Platform UX project data
