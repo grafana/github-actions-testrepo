@@ -11,7 +11,6 @@ jobs:
   add_to_parent_project:
     runs-on: ubuntu-latest
     if: ${{ github.event.issue.projectV2(312)}}
-    runs-on: ubuntu-latest
     steps:
       - name: Get project number
         run: |
