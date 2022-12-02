@@ -33,7 +33,7 @@ jobs:
               }
             }' -f org=$ORGANIZATION -f repo=$REPO --jq '.data.issue.projectCards.nodes')"
             
-            echo 'ISSUE_EXISTS='${{ toJSON(item_exists) }} >> $GITHUB_ENV
+            echo 'ISSUE_EXISTS='$item_exists >> $GITHUB_ENV
       - name: Get Platform UX project data
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
