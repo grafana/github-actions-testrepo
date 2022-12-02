@@ -24,8 +24,10 @@ jobs:
                 issue (number: ${{ github.event.issue.number }}) {
                   projectItems(first:20) {
                     nodes {
+                      fieldValueByName('Status'),
                       project {
-                        number
+                        number,
+                        title
                       }
                     }
                   }
@@ -35,6 +37,7 @@ jobs:
             
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'EXISTS='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
+            // '' if not exists or project number if it does
       - name: Get Platform UX project data
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
