@@ -17,6 +17,7 @@ jobs:
           ORGANIZATION: grafana
           REPO: "github-actions-testrepo"
           ISSUE: ${{ toJSON(github.event.issue) }}
+          ISSUEID: ${{ toJSON(github.event.issue.id) }}
         run: |
           gh api graphql -f query='
             query($n: Int!) {
@@ -28,7 +29,7 @@ jobs:
                     url
                   }
               }
-            }' -f repo=$REPO -F org=$ORGANIZATION -F number=$ISSUE
+            }' -f repo=$REPO -F org=$ORGANIZATION -F number=$ISSUEID
             
             echo Issue $ISSUE
       - name: Get Platform UX project data
