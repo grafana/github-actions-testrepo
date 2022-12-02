@@ -18,7 +18,7 @@ jobs:
           ORGANIZATION: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
         run: |
-          item_exists="$( gh api graphql -f query='
+          gh api graphql -f query='
             query($org: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
                 issue (number: ${{ github.event.issue.number }}) {
@@ -31,9 +31,10 @@ jobs:
                   }
                 }
               }
-            }' -f org=$ORGANIZATION -f repo=$REPO --jq '.data.repository.issue')"
+            }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
-            echo 'ISSUE_EXISTS='$item_exists >> $GITHUB_ENV
+            echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
+            echo 'EXISTS='$(jq '.data.repository.issue.projectItems.nodes[] | select(.number==312) | .number' projects_data.json) >> $GITHUB_ENV
       - name: Get Platform UX project data
         env:
           GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
