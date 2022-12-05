@@ -29,15 +29,15 @@ jobs:
                 issue (number: ${{ github.event.issue.number }}) {
                   projectItems(first:20) {
                     nodes {
+                      project {
+                        number,
+                        title
+                      },
                       fieldValueByName(name:$status) {
                         ... on ProjectV2ItemFieldSingleSelectValue {
                           optionId
                           name
                         }
-                      },
-                      project {
-                        number,
-                        title
                       }
                     }
                   }
