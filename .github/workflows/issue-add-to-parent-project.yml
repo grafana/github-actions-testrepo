@@ -45,9 +45,6 @@ jobs:
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
-            echo 'PROJ_EXISTS=${{ toJson(env.PROJ_NO) && true }}' >> $GITHUB_ENV
-            echo 'STATUS_EXISTS=${{ env.PROJ_STATUS != null }}' >> $GITHUB_ENV
-            echo 'PROJ_AND_STATUS=${{ (env.PROJ_STATUS != null) && toJson(env.PROJ_NO) }}' >> $GITHUB_ENV
             echo 'PARENT_PROJ_STATUS=${{ contains(env.PROJ_STATUS, 'do') }}' >> $GITHUB_ENV
       - name: Get Parent Project project data
         if: env.PROJ_NO
@@ -84,6 +81,10 @@ jobs:
           echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
       - name: Set Parent Project Status
-        if: env.PROJ_NO && env.PROJ_STATUS
+        if: env.PROJ_STATUS != null
         run: |
           echo 'ran Set Parent Project Status'
+      - name: Set Parent Project Status TODO
+        if: contains(env.PROJ_STATUS, 'do')
+        run: |
+          echo 'ran Set Parent Project Status TODO'
