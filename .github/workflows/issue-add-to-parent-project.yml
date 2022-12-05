@@ -81,7 +81,7 @@ jobs:
           echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
       - name: Set Parent Project Status
-        if: env.PROJ_STATUS != null
+        if: env.PROJ_STATUS
         run: |
           echo 'ran Set Parent Project Status'
       - name: Set Parent Project Status TODO
