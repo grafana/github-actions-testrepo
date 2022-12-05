@@ -45,8 +45,7 @@ jobs:
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
-            echo 'PARENT_PROJ_STATUS=${{ contains(env.PROJ_STATUS, 'do') }}' >> $GITHUB_ENV
-      - name: Get Parent Project project data
+      - name: Get parent project project data
         if: env.PROJ_NO
         run: |
           gh api graphql -f query='
@@ -80,11 +79,15 @@ jobs:
           echo 'TODO_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
           echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
-      - name: Set Parent Project Status
-        if: env.PROJ_STATUS
+      - name: Set parent project status Done
+        if: contains(env.PROJ_STATUS, 'Done')
         run: |
-          echo 'ran Set Parent Project Status'
-      - name: Set Parent Project Status TODO
-        if: contains(env.PROJ_STATUS, 'do')
+          echo 'ran Set Parent Project Status Done'
+      - name: Set parent project status In Progress
+        if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
         run: |
-          echo 'ran Set Parent Project Status TODO'
+          echo 'ran Set Parent Project Status In Progress'
+      - name: Set parent project status To do
+        if: env.PROJ_STATUS && !contains(env.PROJ_STATUS, 'In ') && !contains(env.PROJ_STATUS, 'Block    ed') && ! contains(env.PROJ_STATUS, 'Done')
+        run: |
+          echo 'ran Set Parent Project Status Todo'
