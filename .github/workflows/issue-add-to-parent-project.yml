@@ -13,6 +13,7 @@ env:
   REPO: ${{ github.event.repository.name }}
   PARENT_PROJECT: 313
   CHILD_PROJECT: 312
+  # STATUS_FIELD: "Status"
     
 jobs:
   add_to_parent_project:
@@ -20,11 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if issue is already in board
-        env:
-          STATUS: "Status"
         run: |
           gh api graphql -f query='
-            query($org: String!, $repo: String!, $status: String!) {
+            query($org: String!, $repo: String!) {
               repository(name: $repo, owner: $org) {
                 issue (number: ${{ github.event.issue.number }}) {
                   projectItems(first:20) {
@@ -37,7 +36,7 @@ jobs:
                   }
                 }
               }
-            }' -f org=$ORGANIZATION -f repo=$REPO -f status=$STATUS > projects_data.json
+            }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==env.CHILD_PROJECT) | .project.number' projects_data.json) >> $GITHUB_ENV
