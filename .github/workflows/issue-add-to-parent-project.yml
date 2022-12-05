@@ -12,8 +12,6 @@ env:
   ORGANIZATION: ${{ github.repository_owner }}
   REPO: ${{ github.event.repository.name }}
   PARENT_PROJECT: 313
-  # CHILD_PROJECT: "312"
-  # STATUS_FIELD: "Status"
     
 jobs:
   add_to_parent_project:
@@ -31,6 +29,12 @@ jobs:
                       project {
                         number,
                         title
+                      },
+                      fieldValueByName(name:"Status") {
+                        ... on ProjectV2ItemFieldSingleSelectValue {
+                          optionId
+                          name
+                        }
                       }
                     }
                   }
@@ -40,7 +44,7 @@ jobs:
             
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
-            echo 'EXISTS=${{ env.PROJ_NO != null }}' >> $GITHUB_ENV
+            echo 'EXISTS=${{ env.PROJ_NO > 0 }}' >> $GITHUB_ENV
       - name: Get Parent Project project data
         run: |
           gh api graphql -f query='
