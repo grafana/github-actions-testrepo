@@ -44,8 +44,9 @@ jobs:
             
             echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
-            echo 'PROJ_STATUS='$toJson(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
-            echo 'EXISTS=${{ toJson(env.PROJ_NO && true) }}' >> $GITHUB_ENV
+            echo 'PROJ_STATUS='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
+            echo 'EXISTS=${{ toJson(env.PROJ_NO) && true }}' >> $GITHUB_ENV
+            echo 'Status ${{ toJson(env.PROJ_Status) }}' >> $GITHUB_ENV
       - name: Get Parent Project project data
         run: |
           gh api graphql -f query='
