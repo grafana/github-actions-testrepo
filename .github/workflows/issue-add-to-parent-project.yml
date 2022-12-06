@@ -42,7 +42,7 @@ jobs:
               }
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
-            echo 'ISSUE_DETAILS='${{ github.event.issue }} >> $GITHUB_ENV
+            echo 'ISSUE_DETAILS='${{ toJson(github.event.issue) }} >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
       - name: Get parent project project data
