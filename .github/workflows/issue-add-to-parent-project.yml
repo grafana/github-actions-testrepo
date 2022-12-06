@@ -92,8 +92,6 @@ jobs:
             }' -f project=$PROJECT_ID -f issue=${{ github.event.issue.node_id }} --jq '.data.addProjectV2ItemById.item.id')"
             # if item exists in project, no action taken and item_id is the existent item id
             echo 'ITEM_ID='$item_id >> $GITHUB_ENV
-      - name: Get date
-        run: echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
       - name: Set parent project status Done
         if: contains(env.PROJ_STATUS, 'Done')
         run: |
@@ -103,7 +101,6 @@ jobs:
               $item: ID!
               $status_field: ID!
               $status_value: String!
-              $date_value: Date!
             ) {
               set_status: updateProjectV2ItemFieldValue(input: {
                 projectId: $project
@@ -117,7 +114,7 @@ jobs:
                   id
                   }
               }
-            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.DONE_OPTION_ID }} -f date_value=$DATE --silent
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.DONE_OPTION_ID }} --silent
           echo 'ran Set Parent Project Status Done'
       - name: Set parent project status In Progress
         if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
