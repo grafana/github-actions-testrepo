@@ -1,8 +1,6 @@
 name: schedule-test
 
-on:
-  project_card:
-    types: [moved, converted, edited]
+on: projects_v2_item
 
 jobs:
   schedule-test:
