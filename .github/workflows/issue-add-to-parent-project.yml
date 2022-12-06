@@ -95,6 +95,21 @@ jobs:
       - name: Set parent project status Done
         if: contains(env.PROJ_STATUS, 'Done')
         run: |
+          echo 'OPTION_ID='$DONE_OPTION_ID
+          echo 'ran Set Parent Project Status Done'
+      - name: Set parent project status In Progress
+        if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
+        run: |
+          echo 'OPTION_ID='$PROGRESS_OPTION_ID
+          echo 'ran Set Parent Project Status In Progress'
+      - name: Set parent project status To do
+        if: env.PROJ_STATUS && !contains(env.PROJ_STATUS, 'In ') && !contains(env.PROJ_STATUS, 'Block    ed') && ! contains(env.PROJ_STATUS, 'Done')
+        run: |
+          echo 'OPTION_ID='$TODO_OPTION_ID
+          echo 'ran Set Parent Project Status Todo'
+      - name: Set issue status in parent project
+        if: env.PROJ_NO
+        run: |
           gh api graphql -f query='
             mutation (
               $project: ID!
@@ -114,13 +129,4 @@ jobs:
                   id
                   }
               }
-            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.DONE_OPTION_ID }} --silent
-          echo 'ran Set Parent Project Status Done'
-      - name: Set parent project status In Progress
-        if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
-        run: |
-          echo 'ran Set Parent Project Status In Progress'
-      - name: Set parent project status To do
-        if: env.PROJ_STATUS && !contains(env.PROJ_STATUS, 'In ') && !contains(env.PROJ_STATUS, 'Block    ed') && ! contains(env.PROJ_STATUS, 'Done')
-        run: |
-          echo 'ran Set Parent Project Status Todo'
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.OPTION_ID }} --silent
