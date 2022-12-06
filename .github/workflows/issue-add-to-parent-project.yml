@@ -12,10 +12,11 @@ env:
   ORGANIZATION: ${{ github.repository_owner }}
   REPO: ${{ github.event.repository.name }}
   PARENT_PROJECT: 313
-  PARENT_PROJECT_NAME: 'Mihaela Parent Test Project'
     
+concurrency:
+  group: issue-add-to-parent-project-${{ github.event.number }}
 jobs:
-  add_to_parent_project:
+  add_issue_to_parent_project:
     if: github.event.issue.number > 0
     runs-on: ubuntu-latest
     steps:
@@ -43,7 +44,6 @@ jobs:
               }
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
-            echo 'PROJECTS='$(jq '.data.repository.issue.projectItems.nodes[]' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
             echo 'PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
       - name: Get parent project project data
