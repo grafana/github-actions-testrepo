@@ -95,18 +95,15 @@ jobs:
       - name: Set parent project status Done
         if: contains(env.PROJ_STATUS, 'Done')
         run: |
-          echo 'OPTION_ID='$DONE_OPTION_ID
-          echo 'ran Set Parent Project Status Done'
+          echo 'OPTION_ID='${{ env.DONE_OPTION_ID }}
       - name: Set parent project status In Progress
         if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
         run: |
-          echo 'OPTION_ID='$PROGRESS_OPTION_ID
-          echo 'ran Set Parent Project Status In Progress'
+          echo 'OPTION_ID='${{ env.PROGRESS_OPTION_ID }}
       - name: Set parent project status To do
         if: env.PROJ_STATUS && !contains(env.PROJ_STATUS, 'In ') && !contains(env.PROJ_STATUS, 'Block    ed') && ! contains(env.PROJ_STATUS, 'Done')
         run: |
-          echo 'OPTION_ID='$TODO_OPTION_ID
-          echo 'ran Set Parent Project Status Todo'
+          echo 'OPTION_ID='${{ env.TODO_OPTION_ID }}
       - name: Set issue status in parent project
         if: env.PROJ_NO
         run: |
