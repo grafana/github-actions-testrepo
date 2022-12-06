@@ -2,10 +2,9 @@ name: issue-add-to-parent-project
 
 on:
   issues:
-    types: 
-      - edited
+    types: [opened, edited, closed, reopened, assigned, unassigned, labeled, unlabeled]
     labels:
-      - 'type/question'
+      - 'type/platform-ux'
       
 env:
   GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
