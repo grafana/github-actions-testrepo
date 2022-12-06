@@ -110,7 +110,18 @@ jobs:
                 itemId: $item
                 fieldId: $status_field
                 value: { 
-                  singleSelectOptionId: $status_value,
+                  singleSelectOptionId: $status_value
+                  }
+              }) {
+                projectV2Item {
+                  id
+                  }
+              }
+              set_status_date: updateProjectV2ItemFieldValue(input: {
+                projectId: $project
+                itemId: $item
+                fieldId: $status_field
+                value: { 
                   date: $date_value
                   }
               }) {
