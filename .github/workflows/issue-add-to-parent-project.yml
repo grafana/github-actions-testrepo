@@ -1,10 +1,10 @@
-name: When issues changed, check if part of specified child projects and update on specified parent project
+name: When epic issues changed, check if part of specified child projects and update on specified parent project
 
 on:
   issues:
     types: [opened, edited, closed, reopened, assigned, unassigned, labeled, unlabeled]
     labels:
-      - 'type/platform-ux'
+      - 'type/epic'
       
 env:
   GITHUB_TOKEN: ${{ secrets.MIHAELA_PROJECTS_TOKEN }}
