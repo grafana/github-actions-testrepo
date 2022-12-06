@@ -44,8 +44,8 @@ jobs:
               }
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
-            echo 'CHILD_PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | map(select(.project.number==316 or .project.number==312)) | first | .project.number' projects_data.json) >> $GITHUB_ENV
-            echo 'IN_CHILD_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | map(select(.project.number==${{ env.CHILD_PROJECT_1 }} or .project.number==${{ env.CHILD_PROJECT_2 }})) | first | .project != null' projects_data.json) >> $GITHUB_ENV
+            echo 'CHILD_PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | first | .project.number' projects_data.json) >> $GITHUB_ENV
+            echo 'IN_CHILD_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.CHILD_PROJECT_1 }} or .project.number==${{ env.CHILD_PROJECT_2 }}) | first | .project != null' projects_data.json) >> $GITHUB_ENV
             echo 'CHILD_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
       - name: Get parent project project data
         if: env.CHILD_PROJ_NO
