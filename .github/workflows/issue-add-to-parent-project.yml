@@ -82,11 +82,17 @@ jobs:
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
       - name: Set parent project status Done
         if: contains(env.PROJ_STATUS, 'Done')
-        uses: alex-page/github-project-automation-plus@v0.8.1
-        with:
-            project: ${{ env.PARENT_PROJECT_NAME }}
-            column: "Done"
-            repo-token: ${{ env.GITHUB_TOKEN }}
+        run: |
+          item_id="$( gh api graphql -f query='
+            mutation($project:ID!, $issue:ID!) {
+              addProjectV2ItemById(input: {projectId: $project, contentId: $issue}) {
+                item {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f issue=${{ github.event.issue.node_id }} --jq '.data.addProjectV2ItemById.item.id')"
+            
+            echo 'ITEM_ID='$item_id >> $GITHUB_ENV
       - name: Set parent project status In Progress
         if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
         run: |
