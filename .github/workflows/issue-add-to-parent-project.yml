@@ -147,7 +147,7 @@ jobs:
                 itemId: $item
                 fieldId: $status_field
                 value: { 
-                  null
+                  'null'
               }) {
                 projectV2Item {
                   id
