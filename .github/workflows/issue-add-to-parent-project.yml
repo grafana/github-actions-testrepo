@@ -1,4 +1,4 @@
-name: issue-add-to-parent-project
+name: When issues changed, check if part of specified child projects and update on specified parent project
 
 on:
   issues:
