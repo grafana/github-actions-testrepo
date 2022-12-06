@@ -15,7 +15,7 @@ env:
 concurrency:
   group: issue-add-to-parent-project-${{ github.event.number }}
 jobs:
-  add_issue_to_parent_project:
+  main:
     if: github.event.issue.number > 0
     runs-on: ubuntu-latest
     steps:
