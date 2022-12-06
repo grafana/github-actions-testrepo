@@ -20,7 +20,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if issue is in one of the child projects
+      - name: Check if issue is in child or parent projects
         run: |
           gh api graphql -f query='
             query($org: String!, $repo: String!) {
@@ -81,7 +81,7 @@ jobs:
           echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
       - name: Add issue to parent project
-        if: env.IN_CHILD_PROJ
+        if: env.IN_CHILD_PROJ && !env.IN_PARENT_PROJ
         run: |
           item_id="$( gh api graphql -f query='
             mutation($project:ID!, $issue:ID!) {
