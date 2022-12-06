@@ -107,7 +107,7 @@ jobs:
         run: |
           echo 'OPTION_ID='$TODO_OPTION_ID >> $GITHUB_ENV
       - name: Set issue status in parent project
-        if: env.OPTION_ID
+        if: env.PARENT_PROJ_STATUS_ID != env.OPTION_ID
         run: |
           gh api graphql -f query='
             mutation (
@@ -129,5 +129,3 @@ jobs:
                   }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.OPTION_ID }} --silent
-
-            echo 'SAME_STATUS='${{ env.PARENT_PROJ_STATUS_ID == env.OPTION_ID }} >> $GITHUB_ENV
