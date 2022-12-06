@@ -117,18 +117,6 @@ jobs:
                   id
                   }
               }
-              set_status_date: updateProjectV2ItemFieldValue(input: {
-                projectId: $project
-                itemId: $item
-                fieldId: $status_field
-                value: { 
-                  date: $date_value
-                  }
-              }) {
-                projectV2Item {
-                  id
-                  }
-              }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.DONE_OPTION_ID }} -f date_value=$DATE --silent
           echo 'ran Set Parent Project Status Done'
       - name: Set parent project status In Progress
