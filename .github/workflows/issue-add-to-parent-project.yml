@@ -95,7 +95,7 @@ jobs:
       - name: Set parent project status Done
         if: contains(env.PROJ_STATUS, 'Done')
         run: |
-          echo 'OPTION_ID='${{ env.DONE_OPTION_ID }}
+          echo 'OPTION_ID='$DONE_OPTION_ID
       - name: Set parent project status In Progress
         if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
         run: |
