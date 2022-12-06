@@ -92,7 +92,7 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID -f issue=${{ github.event.issue.node_id }} --jq '.data.addProjectV2ItemById.item.id')"
-            # if item exists in project, no action taken and item_id is the existent item id
+ 
             echo 'ITEM_ID='$item_id >> $GITHUB_ENV
       - name: Set parent project status Done
         if: contains(env.CHILD_PROJ_STATUS, 'Done')
@@ -129,3 +129,5 @@ jobs:
                   }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.OPTION_ID }} --silent
+
+            echo 'SAME_STATUS='${{ env.PARENT_PROJ_STATUS_ID == env.OPTION_ID }} >> $GITHUB_ENV
