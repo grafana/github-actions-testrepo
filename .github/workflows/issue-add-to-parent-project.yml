@@ -105,7 +105,7 @@ jobs:
         run: |
           echo 'OPTION_ID='${{ env.TODO_OPTION_ID }}
       - name: Set issue status in parent project
-        if: env.OPTION_ID
+        if: ${{ env.OPTION_ID != null }}
         run: |
           gh api graphql -f query='
             mutation (
