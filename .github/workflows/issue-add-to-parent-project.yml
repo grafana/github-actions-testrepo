@@ -79,7 +79,6 @@ jobs:
           echo 'TODO_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
           echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'OPTION_ID='$TODO_OPTION_ID
       - name: Add issue to parent project
         if: env.PROJ_NO
         run: |
@@ -96,17 +95,17 @@ jobs:
       - name: Set parent project status Done
         if: contains(env.PROJ_STATUS, 'Done')
         run: |
-          echo 'OPTION_ID='$DONE_OPTION_ID
+          echo 'OPTION_ID='$DONE_OPTION_ID >> $GITHUB_ENV
       - name: Set parent project status In Progress
         if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
         run: |
-          echo 'OPTION_ID='$PROGRESS_OPTION_ID
+          echo 'OPTION_ID='$PROGRESS_OPTION_ID >> $GITHUB_ENV
       - name: Set parent project status To do
         if: env.PROJ_STATUS && !contains(env.PROJ_STATUS, 'In ') && !contains(env.PROJ_STATUS, 'Block    ed') && ! contains(env.PROJ_STATUS, 'Done')
         run: |
-          echo 'OPTION_ID='$TODO_OPTION_ID
+          echo 'OPTION_ID='$TODO_OPTION_ID >> $GITHUB_ENV
       - name: Set issue status in parent project
-        if: ${{ env.OPTION_ID != null }}
+        if: env.OPTION_ID
         run: |
           gh api graphql -f query='
             mutation (
