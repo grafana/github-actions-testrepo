@@ -45,6 +45,7 @@ jobs:
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
             echo 'IN_PARENT_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | .project != null' projects_data.json) >> $GITHUB_ENV
+            echo 'PARENT_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | select(.fieldValueByName != null) | .fieldValueByName.optionId' projects_data.json) >> $GITHUB_ENV
             echo 'IN_CHILD_PROJ='$(jq 'first(.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.CHILD_PROJECT_1 }} or .project.number==${{ env.CHILD_PROJECT_2 }}) | .project != null)' projects_data.json) >> $GITHUB_ENV
             echo 'CHILD_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
       - name: Get parent project project data
