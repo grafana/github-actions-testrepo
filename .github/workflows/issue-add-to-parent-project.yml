@@ -47,7 +47,7 @@ jobs:
             
             echo 'PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }})' projects_data.json) >> $GITHUB_ENV
             echo 'IN_PARENT_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | .project != null' projects_data.json) >> $GITHUB_ENV
-            echo 'PARENT_PROJ_STATUS_ID='$(jq -r'.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | select(.fieldValueByName != null) | .fieldValueByName.optionId' projects_data.json) >> $GITHUB_ENV
+            echo 'PARENT_PROJ_STATUS_ID='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | select(.fieldValueByName != null) | .fieldValueByName.optionId' projects_data.json) >> $GITHUB_ENV
             echo 'ITEM_ID='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | .id' projects_data.json) >> $GITHUB_ENV
             echo 'IN_CHILD_PROJ='$(jq 'first(.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.CHILD_PROJECT_1 }} or .project.number==${{ env.CHILD_PROJECT_2 }}) | .project != null)' projects_data.json) >> $GITHUB_ENV
             echo 'CHILD_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
@@ -81,9 +81,9 @@ jobs:
 
           echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
           echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'TODO_OPTION_ID='$(jq -r'.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'PROGRESS_OPTION_ID='$(jq -r'.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
-          echo 'DONE_OPTION_ID='$(jq -r'.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
+          echo 'TODO_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
+          echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
+          echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
       - name: Add issue to parent project
         if: env.IN_CHILD_PROJ && !env.IN_PARENT_PROJ
         run: |
@@ -131,4 +131,4 @@ jobs:
                   id
                   }
               }
-            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=$env.OPTION_ID --silent
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f status_field=$STATUS_FIELD_ID -f status_value=${{ env.OPTION_ID }} --silent
