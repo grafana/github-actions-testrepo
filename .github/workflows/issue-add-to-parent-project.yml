@@ -11,6 +11,8 @@ env:
   ORGANIZATION: ${{ github.repository_owner }}
   REPO: ${{ github.event.repository.name }}
   PARENT_PROJECT: 313
+  CHILD_PROJECT_1: 312
+  CHILD_PROJECT_2: 316
     
 concurrency:
   group: issue-add-to-parent-project-${{ github.event.number }}
@@ -42,11 +44,11 @@ jobs:
               }
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
-            echo 'ISSUE_DETAILS='${{ toJson(github.event.issue) }} >> $GITHUB_ENV
-            echo 'PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
-            echo 'PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
+            echo 'CHILD_PROJ_NO='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number' projects_data.json) >> $GITHUB_ENV
+            echo 'IN_CHILD_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | .project.number!=null' projects_data.json) >> $GITHUB_ENV
+            echo 'CHILD_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
       - name: Get parent project project data
-        if: env.PROJ_NO
+        if: env.CHILD_PROJ_NO
         run: |
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
@@ -79,7 +81,7 @@ jobs:
           echo 'PROGRESS_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="In Progress") |.id' project_data.json) >> $GITHUB_ENV
           echo 'DONE_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Done") |.id' project_data.json) >> $GITHUB_ENV
       - name: Add issue to parent project
-        if: env.PROJ_NO
+        if: env.CHILD_PROJ_NO
         run: |
           item_id="$( gh api graphql -f query='
             mutation($project:ID!, $issue:ID!) {
@@ -92,15 +94,15 @@ jobs:
             # if item exists in project, no action taken and item_id is the existent item id
             echo 'ITEM_ID='$item_id >> $GITHUB_ENV
       - name: Set parent project status Done
-        if: contains(env.PROJ_STATUS, 'Done')
+        if: contains(env.CHILD_PROJ_STATUS, 'Done')
         run: |
           echo 'OPTION_ID='$DONE_OPTION_ID >> $GITHUB_ENV
       - name: Set parent project status In Progress
-        if: contains(env.PROJ_STATUS, 'In ') || contains(env.PROJ_STATUS, 'Blocked')
+        if: contains(env.CHILD_PROJ_STATUS, 'In ') || contains(env.CHILD_PROJ_STATUS, 'Blocked')
         run: |
           echo 'OPTION_ID='$PROGRESS_OPTION_ID >> $GITHUB_ENV
       - name: Set parent project status To do
-        if: env.PROJ_STATUS && !contains(env.PROJ_STATUS, 'In ') && !contains(env.PROJ_STATUS, 'Block    ed') && ! contains(env.PROJ_STATUS, 'Done')
+        if: env.CHILD_PROJ_STATUS && !contains(env.CHILD_PROJ_STATUS, 'In ') && !contains(env.CHILD_PROJ_STATUS, 'Block    ed') && ! contains(env.CHILD_PROJ_STATUS, 'Done')
         run: |
           echo 'OPTION_ID='$TODO_OPTION_ID >> $GITHUB_ENV
       - name: Set issue status in parent project
