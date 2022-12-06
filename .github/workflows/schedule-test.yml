@@ -1,14 +1,15 @@
-# name: schedule-test
+name: schedule-test
 
-# on:
-#   schedule:
-#   - cron:  "*/5 * * * *"  
+on:
+  project_card:
+    types: [moved, converted, edited]
 
-# jobs:
-#   schedule-test:
-#     if: github.repository == 'grafana/github-actions-testrepo'
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: schedule-test      
-#       run: | 
-#           echo "running"
+jobs:
+  schedule-test:
+    if: github.repository == 'grafana/github-actions-testrepo'
+    runs-on: ubuntu-latest
+    steps:
+    - name: schedule-test      
+      run: | 
+          echo "running"
+          echo 'GH_EVENT='${{ toJson(github.event) }} >> $GITHUB_ENV
