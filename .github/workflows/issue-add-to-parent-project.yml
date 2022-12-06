@@ -2,7 +2,7 @@ name: When epic issues changed, check if part of specified child projects and up
 
 on:
   issues:
-    types: [opened, edited, closed, reopened, assigned, unassigned, labeled, unlabeled]
+    types: [opened, edited, reopened, assigned, unassigned, labeled, unlabeled]
     labels:
       - 'type/epic'
       
@@ -49,7 +49,7 @@ jobs:
             echo 'PARENT_PROJ_STATUS_ID='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | select(.fieldValueByName != null) | .fieldValueByName.optionId' projects_data.json) >> $GITHUB_ENV
             echo 'ITEM_ID='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.PARENT_PROJECT }}) | .id' projects_data.json) >> $GITHUB_ENV
             echo 'IN_CHILD_PROJ='$(jq 'first(.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.CHILD_PROJECT_1 }} or .project.number==${{ env.CHILD_PROJECT_2 }}) | .project != null)' projects_data.json) >> $GITHUB_ENV
-            echo 'CHILD_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==316 or .project.number==312) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
+            echo 'CHILD_PROJ_STATUS='$(jq -r '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.CHILD_PROJECT_1 }} or .project.number==${{ env.CHILD_PROJECT_2 }}) | select(.fieldValueByName != null) | .fieldValueByName.name' projects_data.json) >> $GITHUB_ENV
       - name: Get parent project project data
         if: env.IN_CHILD_PROJ
         run: |
@@ -105,7 +105,7 @@ jobs:
         run: |
           echo 'OPTION_ID='$PROGRESS_OPTION_ID >> $GITHUB_ENV
       - name: Set parent project status To do
-        if: env.CHILD_PROJ_STATUS && !contains(env.CHILD_PROJ_STATUS, 'In ') && !contains(env.CHILD_PROJ_STATUS, 'Block    ed') && ! contains(env.CHILD_PROJ_STATUS, 'Done')
+        if: env.CHILD_PROJ_STATUS && !contains(env.CHILD_PROJ_STATUS, 'In ') && !contains(env.CHILD_PROJ_STATUS, 'Blocked') && ! contains(env.CHILD_PROJ_STATUS, 'Done')
         run: |
           echo 'OPTION_ID='$TODO_OPTION_ID >> $GITHUB_ENV
       - name: Set issue status in parent project
