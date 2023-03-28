@@ -118,19 +118,17 @@ body:
       value: |
        ##
        ## Is the bug inside a Dashboard Panel?
-  - type: checkboxes
+  - type: dropdown
     id: get-help-bool
     attributes:
       label: panel issue?
       options:
-        - label: 'yes'
-          required: false
-        - label: 'no'
-          required: false
+        - 'No'
+        - 'Yes'
   - type: textarea
     id: get-help
     attributes:
-      label: if yes...
+      label: 'Get Help data:'
       description: |
         If the bug appears inside a [dashboard panel](https://grafana.com/docs/grafana/latest/panels-visualizations/#panels-and-visualizations), please use the ["Get-Help" feature](https://grafana.com/docs/grafana/latest/troubleshooting/send-panel-to-grafana-support/). Select **copy to clipboard** and paste the data below.
         No need for backticks--this text will get formatted as a code-block.
@@ -146,7 +144,7 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: tell me more...
+      label: 'Server Logs:'
       description: |
         Please copy and paste any relevant log output. You might want to increase your Grafana log's verbosity to 'Debug'
         No need for backticks--this text will get formatted as a code-block.
