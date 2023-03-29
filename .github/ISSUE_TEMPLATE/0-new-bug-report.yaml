@@ -14,12 +14,19 @@ body:
     attributes:
       value: |
         **HINT:** Have you tried [searching](https://github.com/grafana/grafana/issues) for similar issues? Duplicate issues are common.
+  - type: markdown
+    attributes:
+      value: |
+       #
   - type: textarea
     id: bug-describe
     attributes:
-      label: '1 / 3: What went wrong?'
+      label: |
+        
+        # 1 / 3: What went wrong?
+        
       description: |
-        ## **What happened**:
+        #
         Describe your bug. What happened? What did you expect to happen?
 
         **Hot Tip:** Record your screen and add it here as a gif. 
@@ -35,12 +42,19 @@ body:
 
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |
+       #
   - type: textarea
     id: bug-repro
     attributes:
-      label: '2 / 3: How do we reproduce it?'
+      label: |
+        
+        # 2 / 3: How do we reproduce it?
+        
       description: |
-        ## **Reproduction Steps**?
+        #
 
         Whenever possible, please provide **detailed** steps for reproducing your bug.
 
@@ -60,12 +74,19 @@ body:
         - Wait for the browser to crash. Error message says: "Error..."
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |
+       #
   - type: dropdown
     id: gf-version
     attributes:
-      label: '3 / 3: What version are you using?'
+      label: |
+        
+        # 3 / 3: What Grafana version are you using?
+        
       description: |
-        ## Grafana Version?
+        #
         - You can find your Grafana version:
           - inside the UI [here](https://share.cleanshot.com/wVTvrKhy), [here](https://share.cleanshot.com/5qg3RKF1), or [here](https://share.cleanshot.com/988MQZz1), depending on your platform and access level.
           - using the Grafana HTTP API's `health` endpoint [like this](https://share.cleanshot.com/H7gcj2Lj): `curl your-grafana-url/api/health` 
@@ -108,27 +129,25 @@ body:
   - type: markdown
     attributes:
       value: |
-        ##
-        ##
-        ## Optional Questions:
-        ##
-
+        #
+        #
+        # Optional Questions:
+        #
   - type: markdown
     attributes:
       value: |
-       ##
-       ## Is the bug inside a Dashboard Panel?
-  - type: dropdown
-    id: get-help-bool
-    attributes:
-      label: panel issue?
-      options:
-        - 'No'
-        - 'Yes'
+       
+       # Optional: Is the bug inside a Dashboard Panel?
+
   - type: textarea
     id: get-help
     attributes:
-      label: 'Get Help data:'
+      label: |
+        
+        ## Optional Questions:
+        
+        ### Is the bug inside a Dashboard Panel?
+
       description: |
         If the bug appears inside a [dashboard panel](https://grafana.com/docs/grafana/latest/panels-visualizations/#panels-and-visualizations), please use the ["Get-Help" feature](https://grafana.com/docs/grafana/latest/troubleshooting/send-panel-to-grafana-support/). Select **copy to clipboard** and paste the data below.
         No need for backticks--this text will get formatted as a code-block.
@@ -139,12 +158,15 @@ body:
   - type: markdown
     attributes:
       value: |
-       ##
-       ## Did you check your grafana server logs?
+       #
+       # Did you check your grafana server logs?
   - type: textarea
     id: logs
     attributes:
-      label: 'Server Logs:'
+      label: |
+        
+        ### Any relevant logs?
+
       description: |
         Please copy and paste any relevant log output. You might want to increase your Grafana log's verbosity to 'Debug'
         No need for backticks--this text will get formatted as a code-block.
@@ -156,9 +178,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        ##
-        ## Can you share more configuration details?
-        > the remaining fields are not required, but please add as much info as possible:
+        
+        # Can you share more configuration details?
+        
   - type: dropdown
     id: gf-deployment
     attributes:
