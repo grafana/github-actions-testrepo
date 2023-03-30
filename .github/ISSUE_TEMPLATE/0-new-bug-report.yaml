@@ -14,6 +14,8 @@ body:
     attributes:
       value: |
         **HINT:** Have you tried [searching](https://github.com/grafana/grafana/issues) for similar issues? Duplicate issues are common.
+
+        Are you reporting a security vulnerability? [Submit it here instead](https://github.com/grafana/grafana/security/policy).
   - type: markdown
     attributes:
       value: |
