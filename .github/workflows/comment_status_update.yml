@@ -17,11 +17,11 @@ jobs:
     steps:
       - name: Get comment body
         id: get-comment
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
           script: |
-            const comment = await github.issues.getComment({
+            const comment = await github.rest.issues.getComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               comment_id: context.payload.comment.id
@@ -29,19 +29,19 @@ jobs:
             return { body: comment.data.body };
       - name: Update project card status
         id: update-status
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
           script: |
             const { projectId, columnId, cardId } = context.payload.project_card;
-            const card = await github.projects.getColumnCard({
+            const card = await github.rest.projects.getColumnCard({
               column_id: columnId
             });
             const statusField = card.data.project_card.Trending;
             const newStatus = /status: (\w+)/i.exec(steps.get-comment.outputs.body)[1];
             console.log("Status: " + newStatus)
             if (statusField !== newStatus) {
-              await github.projects.updateCard({
+              await github.rest.projects.updateCard({
                 card_id: cardId,
                 Trending: `${newStatus}`
               });
