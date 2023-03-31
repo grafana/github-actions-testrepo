@@ -7,7 +7,6 @@ on:
       - 'type/epic'
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
   ORGANIZATION: ${{ github.repository_owner }}
   REPO: ${{ github.event.repository.name }}
   PARENT_PROJECT: 313
@@ -20,7 +19,7 @@ jobs:
         id: get-comment
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
           script: |
             const comment = await github.issues.getComment({
               owner: context.repo.owner,
@@ -32,7 +31,7 @@ jobs:
         id: update-status
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
           script: |
             const { projectId, columnId, cardId } = context.payload.project_card;
             const card = await github.projects.getColumnCard({
