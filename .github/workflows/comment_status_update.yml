@@ -1,0 +1,59 @@
+name: Update project card status based on comment
+
+on:
+  issue_comment:
+    types: [created, edited]
+    labels: 
+      - 'type/epic'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
+  ORGANIZATION: ${{ github.repository_owner }}
+  REPO: ${{ github.event.repository.name }}
+  PARENT_PROJECT: 313
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get comment body
+        id: get-comment
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comment = await github.issues.getComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id
+            });
+            return { body: comment.data.body };
+      - name: Update project card status
+        id: update-status
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { projectId, columnId, cardId } = context.payload.project_card;
+            const card = await github.projects.getColumnCard({
+              column_id: columnId
+            });
+            const statusField = card.data.project_card.Trending;
+            const newStatus = /status: (\w+)/i.exec(steps.get-comment.outputs.body)[1];
+            console.log("Status: " + newStatus)
+            if (statusField !== newStatus) {
+              await github.projects.updateCard({
+                card_id: cardId,
+                Trending: `${newStatus}`
+              });
+              return { updated: true };
+            } else {
+              return { updated: false };
+            }
+      - name: Output update status
+        run: |
+          if (${{ steps.update-status.outputs.updated }}) {
+            echo "Status updated!";
+          } else {
+            echo "No change in status.";
+          }
