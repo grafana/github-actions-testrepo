@@ -19,7 +19,7 @@ jobs:
         id: get-comment
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
+          github-token: ${{ secrets.ISSUE_COMMANDS_TOKEN }}
           script: |
             const comment = await github.rest.issues.getComment({
               owner: context.repo.owner,
@@ -31,7 +31,7 @@ jobs:
         id: update-status
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
+          github-token: ${{ secrets.ISSUE_COMMANDS_TOKEN }}
           script: |
             const { projectId, columnId, cardId } = context.payload.project_card;
             const card = await github.rest.projects.getColumnCard({
