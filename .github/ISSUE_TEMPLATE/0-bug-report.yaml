@@ -307,6 +307,5 @@ body:
     id: extra
     attributes:
       label: |
-                ### Anything else to add?
-
+              Anything else to add?
       description: Add any extra information here
