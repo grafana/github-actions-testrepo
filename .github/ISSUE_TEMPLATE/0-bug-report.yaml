@@ -296,17 +296,17 @@ body:
         - Zabbix
         - Zipkin
         - Other
+  - type: markdown
+    attributes:
+      value: |
+        #
+        #
+        ## Anything else to add?
+        #
   - type: textarea
     id: extra
     attributes:
       label: |
-                ### Any relevant logs?
+                ### Anything else to add?
 
-      description: |
-        Please copy and paste any relevant log output. You might want to increase your Grafana log's verbosity to 'Debug'
-        No need for backticks--this text will get formatted as a code-block.
-        [How do I find my grafana server logs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#logs)?
-        [How do I increase my grafana server logs to 'debug'](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#log)?
-      render: sh
-      placeholder: Copy your grafana server logs here
-      value: Copy your grafana server logs here  
+      description: Add any extra information here
