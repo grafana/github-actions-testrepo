@@ -15,7 +15,7 @@ body:
       value: |
         **HINT:** Have you tried [searching](https://github.com/grafana/grafana/issues) for similar issues? Duplicate issues are common.
 
-        Are you reporting a security vulnerability? [Submit it here instead](https://github.com/grafana/grafana/security/policy).
+        **Are you reporting a security vulnerability?** [Submit it here instead](https://github.com/grafana/grafana/security/policy).
   - type: markdown
     attributes:
       value: |
@@ -98,6 +98,8 @@ body:
         - I don't know my version
         - Whatever Grafana Cloud is running
         - Building from `main`
+        - 9.5.0
+        - 9.4.7
         - 9.4.3
         - 9.4.2
         - 9.4.1
@@ -131,13 +133,6 @@ body:
   - type: markdown
     attributes:
       value: |
-        #
-        #
-        # Optional Questions:
-        #
-  - type: markdown
-    attributes:
-      value: |
        
        # Is the bug inside a Dashboard Panel?
 
@@ -160,6 +155,13 @@ body:
   - type: markdown
     attributes:
       value: |
+        #
+        #
+        # Optional Questions:
+        #
+  - type: markdown
+    attributes:
+      value: |
        #
        # Did you check your grafana server logs?
   - type: textarea
@@ -167,6 +169,8 @@ body:
     attributes:
       label: |
         
+        ## Optional Questions:
+
         ### Any relevant logs?
 
       description: |
@@ -292,3 +296,17 @@ body:
         - Zabbix
         - Zipkin
         - Other
+  - type: textarea
+    id: extra
+    attributes:
+      label: |
+                ### Any relevant logs?
+
+      description: |
+        Please copy and paste any relevant log output. You might want to increase your Grafana log's verbosity to 'Debug'
+        No need for backticks--this text will get formatted as a code-block.
+        [How do I find my grafana server logs](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#logs)?
+        [How do I increase my grafana server logs to 'debug'](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#log)?
+      render: sh
+      placeholder: Copy your grafana server logs here
+      value: Copy your grafana server logs here  
