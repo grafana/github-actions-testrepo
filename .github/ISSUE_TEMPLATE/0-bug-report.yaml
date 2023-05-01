@@ -93,6 +93,13 @@ body:
       placeholder: "ex: v9.5.0, or v9.5.0-cloud.5.a016665c (b2a5d45589)"
     validations:
       required: true  
+  - type: markdown
+    attributes:
+      value: |
+        #
+        #
+        # Optional Questions:
+        #
   - type: textarea
     id: get-help
     attributes:
@@ -109,13 +116,6 @@ body:
         What's a [dashboard panel](https://grafana.com/docs/grafana/latest/panels-visualizations/#panels-and-visualizations)?
       placeholder: Copy "get-help" data here
       value: Copy the panel's ["get-help" data](https://grafana.com/docs/grafana/latest/troubleshooting/send-panel-to-grafana-support/) here  
-  - type: markdown
-    attributes:
-      value: |
-        #
-        #
-        # Optional Questions:
-        #
   - type: dropdown
     id: gf-deployment
     attributes:
