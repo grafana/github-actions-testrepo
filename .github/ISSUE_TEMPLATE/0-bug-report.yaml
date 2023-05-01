@@ -85,7 +85,7 @@ body:
     attributes:
       label: |
         
-        **What Grafana version are you using?**
+        # What Grafana version are you using?
         
       description: |
         #
