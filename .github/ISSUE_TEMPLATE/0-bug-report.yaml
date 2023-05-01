@@ -93,12 +93,6 @@ body:
       placeholder: "ex: v9.5.0, or v9.5.0-cloud.5.a016665c (b2a5d45589)"
     validations:
       required: true  
-  - type: markdown
-    attributes:
-      value: |
-       
-       # Is the bug inside a Dashboard Panel?
-
   - type: textarea
     id: get-help
     attributes:
@@ -122,12 +116,6 @@ body:
         #
         # Optional Questions:
         #
-  - type: markdown
-    attributes:
-      value: |
-        
-        # Can you share more configuration details?
-        
   - type: dropdown
     id: gf-deployment
     attributes:
