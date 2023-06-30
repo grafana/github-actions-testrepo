@@ -55,4 +55,4 @@ jobs:
               ) {
                   clientMutationId
               }
-            }' -f labelableId=$ITEM_ID labelIds=[${{ env.LABEL_IDs }}] --silent
+            }' -f labelableId=$ITEM_ID -f labelIds=[${{ env.LABEL_IDs }}] --silent
