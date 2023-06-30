@@ -16,6 +16,8 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
+      - name: log in
+        run: gh api user -q .login
       - name: Check if issue is in target project
         run: |
           gh api graphql -f query='
