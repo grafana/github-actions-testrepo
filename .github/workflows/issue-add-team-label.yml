@@ -44,7 +44,6 @@ jobs:
             }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
             
             echo 'IN_TARGET_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.TARGET_PROJECT }}) | .project != null' projects_data.json) >> $GITHUB_ENV
-            echo 'ITEM_ID='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.TARGET_PROJECT }}) | .id' projects_data.json) >> $GITHUB_ENV
       - name: Set up label array
         if: env.IN_TARGET_PROJ
         run: |
@@ -52,6 +51,18 @@ jobs:
           for item in "${LABEL_IDs[@]}"; do
             echo "Item: $item"
           done
+      - name: Get issue ID
+        run: |
+          gh api graphql -f query='
+            query($org: String!, $repo: String!) {
+              repository(name: $repo, owner: $org) {
+                issue (number: ${{ github.event.issue.number }}) {
+                  id
+                }
+              }
+            }' -f org=$ORGANIZATION -f repo=$REPO > projects_data.json
+            
+           echo "ITEM_ID=$(jq -r '.data.repository.issue.id' projects_data.json)" >> $GITHUB_ENV
       - name: Add label to issue
         if: env.IN_TARGET_PROJ
         run: |
