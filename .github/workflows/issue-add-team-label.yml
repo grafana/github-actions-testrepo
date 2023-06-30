@@ -4,7 +4,7 @@ on:
     types: [opened, closed, edited, reopened, assigned, unassigned, labeled, unlabeled]
       
 env:
-  GITHUB_TOKEN: ${{ secrets.GH_BOT_PROJECTS_ACCESS_TOKEN }}
+  GH_TOKEN: ${{ secrets.GH_BOT_PROJECTS_ACCESS_TOKEN }}
   ORGANIZATION: ${{ github.repository_owner }}
   REPO: ${{ github.event.repository.name }}
   TARGET_PROJECT: 313
