@@ -45,14 +45,21 @@ jobs:
             
             echo 'IN_TARGET_PROJ='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.TARGET_PROJECT }}) | .project != null' projects_data.json) >> $GITHUB_ENV
             echo 'ITEM_ID='$(jq '.data.repository.issue.projectItems.nodes[] | select(.project.number==${{ env.TARGET_PROJECT }}) | .id' projects_data.json) >> $GITHUB_ENV
+      - name: Set up label array
+        if: env.IN_TARGET_PROJ
+        run: |
+          IFS=',' read -ra LABEL_IDs <<< "${{ env.LABEL_IDs }}"
+          for item in "${LABEL_IDs[@]}"; do
+            echo "Item: $item"
+          done
       - name: Add label to issue
         if: env.IN_TARGET_PROJ
         run: |
           gh api graphql -f query='
-            mutation ($labelableId: ID!, $labelIds: ID!) {
+            mutation ($labelableId: ID!, $labelIds: [ID!]!) {
               addLabelsToLabelable(
-                input: {labelableId: $labelableId, labelIds: [$labelIds]}
+                input: {labelableId: $labelableId, labelIds: $labelIds}
               ) {
                   clientMutationId
               }
-            }' -f labelableId=$ITEM_ID -f labelIds='[${{ env.LABEL_IDs }}]' --silent
+            }' -f labelableId=$ITEM_ID -f labelIds=${{ env.LABEL_IDs }} --silent
