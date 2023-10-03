@@ -1,0 +1,11 @@
+# The first keys are labels used on issues. All fields are optional.
+# Example
+test:
+  # channel-label is used to send a message to a specific channel
+  # when the label "test" is added to an issue.
+  channel-label: CXXXXXXXXXX
+
+# DataViz squad
+area/dataviz:
+  channel-label: C04J73AAQ87 # grafana-dataviz
+  exclude-github-team: dataviz-squad
