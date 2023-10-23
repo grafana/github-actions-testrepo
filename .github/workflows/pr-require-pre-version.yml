@@ -17,7 +17,7 @@ jobs:
       - name: Fail
         if: "${{ !endsWith(steps.get_version.outputs.version, '-pre') }}"
         run: |
-          echo "The version specific in the package.json must have \"-pre\" as suffix for the main branch."
+          echo "The version specific in the package.json must have \"-pre\" as suffix for the main branch." | tee -a $GITHUB_STEP_SUMMARY
           exit 1
 
 
