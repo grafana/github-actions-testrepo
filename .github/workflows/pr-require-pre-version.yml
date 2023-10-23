@@ -15,7 +15,7 @@ jobs:
         run:  |
           echo "::set-output name=version::$(cat package.json | jq -r '.version')"
       - name: Fail
-        if: '${{ !endsWith(steps.get_version.outputs.version, "-pre") }}'
+        if: "${{ !endsWith(steps.get_version.outputs.version, '-pre') }}"
         run: |
           echo "The version specific in the package.json must have `-pre` as suffix for the main branch."
           exit 1
