@@ -13,11 +13,11 @@ jobs:
       - name: Get version
         id: get_version
         run:  |
-          echo "::set-output name=version::$(cat package.json | jq -r '.version')"
+          echo "name=version::$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
       - name: Fail
         if: "${{ !endsWith(steps.get_version.outputs.version, '-pre') }}"
         run: |
-          echo "The version specific in the package.json must have `-pre` as suffix for the main branch."
+          echo "The version specific in the package.json must have \"-pre\" as suffix for the main branch."
           exit 1
 
 
