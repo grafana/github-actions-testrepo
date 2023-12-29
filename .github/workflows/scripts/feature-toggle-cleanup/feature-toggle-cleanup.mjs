@@ -26,11 +26,11 @@ export default function cleanupFeatureFlags() {
 		cast_date: true,
 	  });
 
-	console.log('sixMonthAgo', sixMonthAgo);
+	// Here we can have the custom logic of how to handle what type of feature flag - e.g. GA can be treated differently than experimental and so on.
 	for (const flag of parsedFeatureFlags) {
-		console.log(flag);	
 		if (flag.Created < sixMonthAgo) {
 			console.log(`The flag ${flag.Name} was created more than 6 months ago. It should be checked.`);
+			console.log(flag);
 		}
 	}
 	
