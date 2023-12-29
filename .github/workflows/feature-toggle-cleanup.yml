@@ -20,5 +20,5 @@ jobs:
                     FEATURE_TOGGLES_CSV_FILE_PATH: "pkg/services/featuremgmt/toggles_gen.csv"
               with:
                     script: |
-                        const { default: printStuff } = await import('${{ github.workspace }}/.github/workflows/scripts/feature-toggle-cleanup/feature-toggle-cleanup.mjs')                        
+                        const { default: cleanupFeatureFlags } = await import('${{ github.workspace }}/.github/workflows/scripts/feature-toggle-cleanup/feature-toggle-cleanup.mjs')                        
                         await cleanupFeatureFlags({github, context, core})
