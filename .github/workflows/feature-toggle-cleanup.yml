@@ -21,4 +21,4 @@ jobs:
               with:
                     script: |
                         const { default: printStuff } = await import('${{ github.workspace }}/.github/workflows/scripts/feature-toggle-cleanup/feature-toggle-cleanup.mjs')                        
-                        await printStuff({github, context, core})
+                        await cleanupFeatureFlags({github, context, core})
