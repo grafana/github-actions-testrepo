@@ -17,6 +17,7 @@ import fs from 'fs';
 
 export default function cleanupFeatureFlags() {
 	const today = new Date();
+	const sixMonthAgo = today.setMonth(today.getMonth() - 6);
 	const inputFileContents = fs.readFileSync(process.env.FEATURE_TOGGLES_CSV_FILE_PATH);
 	const parsedFeatureFlags = parse(inputFileContents, {
 		columns: true,
@@ -25,9 +26,10 @@ export default function cleanupFeatureFlags() {
 		cast_date: true,
 	  });
 
+	console.log('sixMonthAgo', sixMonthAgo);
 	for (const flag of parsedFeatureFlags) {
-		console.log(flag);
-		if (flag.Created > today.setMonth(today.getMonth() - 6)) {
+		console.log(flag);	
+		if (flag.Created < sixMonthAgo) {
 			console.log(`The flag ${flag.Name} was created more than 6 months ago. It should be checked.`);
 		}
 	}
