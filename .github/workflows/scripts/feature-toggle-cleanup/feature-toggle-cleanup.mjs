@@ -1,4 +1,5 @@
 import { parse } from 'csv-parse/sync';
+import fs from 'fs';
 
 export default function printStuff() {
 	const inputFileContents = fs.readFileSync(process.env.FEATURE_TOGGLES_CSV_FILE_PATH);
