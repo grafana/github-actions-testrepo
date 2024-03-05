@@ -62,12 +62,17 @@ jobs:
 
             var result = {};
 
+            console.log(query);
+            console.log(variables);
+
             try {
               result = await github.graphql(query, variables);
             } catch (error) {
               if (error.data) {
                 result = error.data;
+                console.log(result);
               }
+              return;
             }
 
             console.log(result);
