@@ -23,6 +23,7 @@ jobs:
     outputs:
       trend: ${{ steps.extract-trend.outputs.group1 }}
       trend_id: ${{ steps.convert-trend.outputs.trend_id }}
+      error: ${{ steps.get-project-id.outputs.error }}
     steps:
       - id: extract-trend
         uses: kaisugi/action-regex-match@v1.0.1
@@ -67,6 +68,7 @@ jobs:
             } catch (error) {
               if (error.data) {
                 result = error.data;
+                core.setOutput("error", JSON.stringify(result))
               }
               return;
             }
