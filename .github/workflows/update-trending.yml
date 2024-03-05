@@ -15,7 +15,7 @@ jobs:
       - id: extract-trend
         uses: kaisugi/action-regex-match@v1.0.1
         with:
-          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->/gmi'
+          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->'
           text: ${{ github.event.comment.body }}
       - name: Output trend
         run: |
