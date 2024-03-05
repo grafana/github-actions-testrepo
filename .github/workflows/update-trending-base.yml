@@ -43,7 +43,7 @@ jobs:
               trend: `${{ steps.extract-trend.outputs.group1 }}`.trim(),
               org: '${{ inputs.project_owner }}',
               field_name: '${{ inputs.field_name }}',
-              project_number: '${{ inputs.project_number }}'
+              project_number: ${{ inputs.project_number }}
             };
 
             const query = `
