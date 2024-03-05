@@ -23,7 +23,8 @@ jobs:
   update-trending:
     name: Update epic trending field
     runs-on: ubuntu-latest
-    if: ${{ github.job.extract-trend.outputs.trend != '' }}
+    needs: extract-trend
+    if: ${{ needs.extract-trend.outputs.trend != '' }}
     steps:
       - name: Output trend
         run: |
