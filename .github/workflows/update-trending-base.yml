@@ -62,9 +62,6 @@ jobs:
 
             var result = {};
 
-            console.log(query);
-            console.log(variables);
-
             try {
               result = await github.graphql(query, variables);
             } catch (error) {
@@ -75,9 +72,9 @@ jobs:
               return;
             }
 
-            console.log(result);
-
             const trend_id = result.data.organization.projectV2.field.options[0].id;
+
+            console.log(trend_id)
 
             core.setOutput("trend_id", trend_id);
 
