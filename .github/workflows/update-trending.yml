@@ -6,10 +6,33 @@ on:
       - created
 
 jobs:
+  extract-trend:
+    name: Extract trend
+    runs-on: ubuntu-latest
+    outputs:
+      trend: ${{ steps.extract-trend.outputs.group1 }}
+    steps:
+      - id: extract-trend
+        uses: kaisugi/action-regex-match@v1.0.1
+        with:
+          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->/gmi'
+          text: ${{ github.event.comment.body }}
+      - name: Output trend
+        run: |
+          echo ${{ steps.extract-trend.outputs.group1 }}
   update-trending:
     name: Update epic trending field
     runs-on: ubuntu-latest
+    if: ${{ github.job.extract-trend.outputs.trend != '' }}
     steps:
+      - id: extract-trend
+        uses: kaisugi/action-regex-match@v1.0.1
+        with:
+          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->/gmi'
+          text: ${{ github.event.comment.body }}
+      - name: Output trend
+        run: |
+          echo ${{ steps.extract-trend.outputs.first_match }}
       - id: get-project-id
         uses: monry/actions-get-project-id@v2
         with:
@@ -39,14 +62,6 @@ jobs:
       - name: Output item id
         run: |
           echo ${{ steps.get-item-id.outputs.project-item-id }}
-      - id: extract-trend
-        uses: kaisugi/action-regex-match@v1.0.1
-        with:
-          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->/gmi'
-          text: ${{ github.event.comment.body }}
-      - name: Output trend
-        run: |
-          echo ${{ steps.extract-trend.outputs.first_match }}
       - uses: titoportas/update-project-fields@v0.1.0
         with:
           project-url: https://github.com/orgs/grafana/projects/${{ vars.GH_PROJECT_NUMBER }}
