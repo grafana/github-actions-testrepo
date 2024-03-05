@@ -26,7 +26,7 @@ jobs:
         if: ${{ steps.extract-trend.outputs.group1 != '' }}
         with:
           script: |
-            const trend = ${{ steps.extract-trend.outputs.group1 }};
+            const trend = '${{ steps.extract-trend.outputs.group1 }}';
             let trend_id = '';
 
             switch (trend) {
