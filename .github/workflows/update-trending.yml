@@ -42,7 +42,7 @@ jobs:
         with:
           project-url: https://github.com/orgs/grafana/projects/199
           github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
-          item-id: ${{ steps.get-item-id.outputs.item-id }}
+          item-id: ${{ steps.get-item-id.outputs.project-item-id }}
           field-keys: Trending
           field-values: ${{ github.event.comment.body }}
   
