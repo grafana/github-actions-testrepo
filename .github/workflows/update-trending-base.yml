@@ -71,7 +71,6 @@ jobs:
                 result = error.data;
                 core.setOutput("error", JSON.stringify(result))
               }
-              return;
             }
 
             core.setOutput("result", JSON.stringify(result));
