@@ -70,6 +70,8 @@ jobs:
               }
             }
 
+            console.log(result);
+
             const trend_id = result.data.organization.projectV2.field.options[0].id;
 
             core.setOutput("trend_id", trend_id);
