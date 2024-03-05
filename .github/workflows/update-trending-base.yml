@@ -9,7 +9,7 @@ on:
         default: 'grafana'
       project_number:
         description: GitHub Project Number
-        type: string
+        type: number
         required: true
       field_name:
         description: GitHub Project Field Name
