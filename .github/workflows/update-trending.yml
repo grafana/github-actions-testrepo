@@ -25,24 +25,25 @@ jobs:
         uses: actions/github-script@v6
         if: ${{ steps.extract-trend.outputs.group1 != '' }}
         with:
+          result-encoding: string
           script: |
-            const trend = '${{ steps.extract-trend.outputs.group1 }}';
-            let trend_id = '';
+            const trend = "${{ steps.extract-trend.outputs.group1 }}";
+            let trend_id = "";
 
             switch (trend) {
-              case '🟢 on track':
-                trend_id = 'f2601132';
+              case "🟢 on track":
+                trend_id = "f2601132";
                 break;
-              case '🟡 at risk':
-                trend_id = 'dbb07bfc';
+              case "🟡 at risk":
+                trend_id = "dbb07bfc";
                 break;
-              case '🔴 blocked'
-                trend_id = 'c57311d7';
+              case "🔴 blocked"
+                trend_id = "c57311d7";
               default:
-                trend_id = 'a0a0918d';
+                trend_id = "a0a0918d";
             }
 
-            core.setOutput('trend_id', trend_id);
+            core.setOutput("trend_id", trend_id);
 
             return;
   update-trending:
