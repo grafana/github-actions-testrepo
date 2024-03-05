@@ -23,7 +23,8 @@ jobs:
     outputs:
       trend: ${{ steps.extract-trend.outputs.group1 }}
       trend_id: ${{ steps.convert-trend.outputs.trend_id }}
-      error: ${{ steps.get-project-id.outputs.error }}
+      error: ${{ steps.convert-trend.outputs.error }}
+      result: ${{ steps.convert-trend.outputs.result }}
     steps:
       - id: extract-trend
         uses: kaisugi/action-regex-match@v1.0.1
@@ -72,6 +73,8 @@ jobs:
               }
               return;
             }
+
+            core.setOutput("result", JSON.stringify(result));
 
             const trend_id = result.organization.projectV2.field.options[0].id;
 
