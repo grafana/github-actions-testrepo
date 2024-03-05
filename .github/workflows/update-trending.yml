@@ -27,7 +27,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const trend = "${{ steps.extract-trend.outputs.group1 }}";
+            const trend = `${{ steps.extract-trend.outputs.group1 }}`.trim();
             let trend_id = "";
 
             switch (trend) {
@@ -37,7 +37,7 @@ jobs:
               case "🟡 at risk":
                 trend_id = "dbb07bfc";
                 break;
-              case "🔴 blocked"
+              case "🔴 blocked":
                 trend_id = "c57311d7";
               default:
                 trend_id = "a0a0918d";
