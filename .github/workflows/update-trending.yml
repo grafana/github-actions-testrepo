@@ -19,7 +19,7 @@ jobs:
           text: ${{ github.event.comment.body }}
       - name: Output trend
         run: |
-          echo ${{ steps.extract-trend.outputs.group1 }}
+          echo "${{ steps.extract-trend.outputs.group1 }}"
   update-trending:
     name: Update epic trending field
     runs-on: ubuntu-latest
