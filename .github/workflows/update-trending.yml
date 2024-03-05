@@ -25,11 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.job.extract-trend.outputs.trend != '' }}
     steps:
-      - id: extract-trend
-        uses: kaisugi/action-regex-match@v1.0.1
-        with:
-          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->/gmi'
-          text: ${{ github.event.comment.body }}
       - name: Output trend
         run: |
           echo ${{ steps.extract-trend.outputs.first_match }}
