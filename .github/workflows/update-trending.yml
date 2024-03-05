@@ -1,5 +1,16 @@
 name: Update epic trending field
 
+inputs:
+  project_owner:
+    description: GitHub Project Owner
+    default: 'grafana'
+  project_number:
+    description: GitHub Project Number
+    required: true
+  field_name:
+    description: GitHub Project Field Name
+    defailt: 'Trending'
+
 on:
   issue_comment:
     types:
@@ -26,24 +37,41 @@ jobs:
         uses: actions/github-script@v6
         if: ${{ steps.extract-trend.outputs.group1 != '' }}
         with:
-          result-encoding: string
           script: |
-            const trend = `${{ steps.extract-trend.outputs.group1 }}`.trim();
-            let trend_id = "";
+            const variables = {
+              trend: `${{ steps.extract-trend.outputs.group1 }}`.trim(),
+              org: '${{ inputs.project_owner }}',
+              field_name: '${{ inputs.field_name }}',
+              project_number: '${{ inputs.project_number }}'
+            };
 
-            switch (trend) {
-              case "🟢 on track":
-                trend_id = "f2601132";
-                break;
-              case "🟡 at risk":
-                trend_id = "dbb07bfc";
-                break;
-              case "🔴 blocked":
-                trend_id = "c57311d7";
-                break;
-              default:
-                trend_id = "a0a0918d";
+            const query = `
+              query($org: String!, $field_name: String!, $project_number:Int!, $trend: String!) {
+                organization(login: $org) {
+                  projectV2(number: $project_number) {
+                    field(name: $field_name) {
+                      ... on ProjectV2SingleSelectField {
+                        options(names: [$trend]) {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `;
+
+            var result = {};
+
+            try {
+              result = await github.graphql(query, variables);
+            } catch (error) {
+              if (error.data) {
+                result = error.data;
+              }
             }
+
+            const trend_id = result.data.organization.projectV2.field.options[0].id;
 
             core.setOutput("trend_id", trend_id);
 
@@ -58,26 +86,26 @@ jobs:
         uses: monry/actions-get-project-id@v2
         with:
           # Personal Access Token that with `org:read` are granted.
-          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
+          github-token: ${{ github.token }}
 
           # Owner name of project
-          project-owner: 'grafana'
+          project-owner: ${{ inputs.project_owner }}
 
           # Number of project
           # 
           # The project number is the number shown in the URL or list
           # https://github.com/users/monry/projects/123
           #                                         ^^^
-          project-number: ${{ vars.GH_PROJECT_NUMBER }}
+          project-number: ${{ inputs.project_number }}
       - name: Output project id
         run: |
-          echo project number: ${{ vars.GH_PROJECT_NUMBER }}
+          echo project number: ${{ inputs.project_number }}
           echo project id: ${{ steps.get-project-id.outputs.project-id }}
       - id: get-item-id
         uses: monry/actions-get-project-item-id@v2
         with:
           # Personal Access Token that with `repo` and `org:read` are granted.
-          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
+          github-token: ${{ github.token }}
           project-id: ${{ steps.get-project-id.outputs.project-id }}
           issue-id: ${{ github.event.issue.node_id }}
       - name: Output item id
@@ -85,8 +113,8 @@ jobs:
           echo ${{ steps.get-item-id.outputs.project-item-id }}
       - uses: titoportas/update-project-fields@v0.1.0
         with:
-          project-url: https://github.com/orgs/grafana/projects/${{ vars.GH_PROJECT_NUMBER }}
-          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
+          project-url: https://github.com/orgs/grafana/projects/${{ inputs.project_number }}
+          github-token: ${{ github.token }}
           item-id: ${{ steps.get-item-id.outputs.project-item-id }}
           field-keys: Trending
           field-values: ${{ needs.extract-trend.outputs.trend_id }}
