@@ -67,14 +67,11 @@ jobs:
             } catch (error) {
               if (error.data) {
                 result = error.data;
-                console.log(result);
               }
               return;
             }
 
-            const trend_id = result.data.organization.projectV2.field.options[0].id;
-
-            console.log(trend_id)
+            const trend_id = result.organization.projectV2.field.options[0].id;
 
             core.setOutput("trend_id", trend_id);
 
