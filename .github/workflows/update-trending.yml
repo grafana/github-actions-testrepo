@@ -39,6 +39,7 @@ jobs:
                 break;
               case "🔴 blocked":
                 trend_id = "c57311d7";
+                break;
               default:
                 trend_id = "a0a0918d";
             }
