@@ -67,6 +67,7 @@ jobs:
             try {
               result = await github.graphql(query, variables);
             } catch (error) {
+              core.setOutput("error", error.message)
               if (error.data) {
                 result = error.data;
                 core.setOutput("error", JSON.stringify(result))
