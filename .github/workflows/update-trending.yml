@@ -27,7 +27,8 @@ jobs:
           project-number: ${{ vars.GH_PROJECT_NUMBER }}
       - name: Output project id
         run: |
-          echo ${{ steps.get-project-id.outputs.project-id }}
+          echo project number: ${{ vars.GH_PROJECT_NUMBER }}
+          echo project id: ${{ steps.get-project-id.outputs.project-id }}
       - id: get-item-id
         uses: monry/actions-get-project-item-id@v2
         with:
@@ -39,11 +40,10 @@ jobs:
         run: |
           echo ${{ steps.get-item-id.outputs.project-item-id }}
       - id: extract-trend
-        uses: AsasInnab/regex-action@v1
+        uses: kaisugi/action-regex-match@v1.0.1
         with:
-          regex_pattern: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->'
-          regex_flags: 'gmi'
-          search_string: ${{ github.event.comment.body }}
+          regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->/gmi'
+          text: ${{ github.event.comment.body }}
       - name: Output trend
         run: |
           echo ${{ steps.extract-trend.outputs.first_match }}
@@ -53,5 +53,5 @@ jobs:
           github-token: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
           item-id: ${{ steps.get-item-id.outputs.project-item-id }}
           field-keys: Trending
-          field-values: ${{ steps.extract-trend.outputs.first_match }}
+          field-values: ${{ steps.extract-trend.outputs.group1 }}
   
