@@ -91,7 +91,7 @@ jobs:
         uses: monry/actions-get-project-id@v2
         with:
           # Personal Access Token that with `org:read` are granted.
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
 
           # Owner name of project
           project-owner: ${{ inputs.project_owner }}
@@ -110,7 +110,7 @@ jobs:
         uses: monry/actions-get-project-item-id@v2
         with:
           # Personal Access Token that with `repo` and `org:read` are granted.
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
           project-id: ${{ steps.get-project-id.outputs.project-id }}
           issue-id: ${{ github.event.issue.node_id }}
       - name: Output item id
@@ -119,7 +119,7 @@ jobs:
       - uses: titoportas/update-project-fields@v0.1.0
         with:
           project-url: https://github.com/orgs/grafana/projects/${{ inputs.project_number }}
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
           item-id: ${{ steps.get-item-id.outputs.project-item-id }}
           field-keys: Trending
           field-values: ${{ needs.extract-trend.outputs.trend_id }}
