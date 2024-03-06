@@ -9,4 +9,5 @@ jobs:
     uses: grafana/github-actions-testrepo/.github/workflows/update-trending-base.yml@main
     with:
       project_number: 582
+      github_token: ${{ secrets.TEST_ACCESS_TOKEN }}
     secrets: inherit
