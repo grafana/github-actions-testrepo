@@ -38,6 +38,7 @@ jobs:
         uses: actions/github-script@v6
         if: ${{ steps.extract-trend.outputs.group1 != '' }}
         with:
+          github-token: ${{ secrets.TEST_ACCESS_TOKEN }}
           script: |
             const variables = {
               trend: `${{ steps.extract-trend.outputs.group1 }}`.trim(),
