@@ -19,4 +19,4 @@ jobs:
         uses: grafana/grafana-github-actions-go/auto-milestone@main
         with:
           pr: ${{ github.event.pull_request.number }}
-          token: "wrong token"
+          token: ${{ secrets.GITHUB_TOKEN }}
