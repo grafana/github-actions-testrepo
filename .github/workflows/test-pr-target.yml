@@ -1,0 +1,24 @@
+name: Auto-milestone
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - closed
+      - milestoned
+      - demilestoned
+
+permissions:
+  pull-requests: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test echo
+        run: echo "this ran on an event ${{ github.event_name }}"
+      - name: Run auto-milestone
+        uses: grafana/grafana-github-actions-go/auto-milestone@main
+        with:
+          pr: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
