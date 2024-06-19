@@ -1,4 +1,4 @@
-name: Auto-milestone
+name: test-pr-target
 on:
   pull_request_target:
     types:
