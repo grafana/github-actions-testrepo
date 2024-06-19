@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test echo
-        run: echo "this ran on an event ${{ github.event_name }}"
+        run: echo "this ran on an event ${{ github.event_name }} / ${{ github.event.action }}"
       - name: Run auto-milestone
         uses: grafana/grafana-github-actions-go/auto-milestone@main
         with:
