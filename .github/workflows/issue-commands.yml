@@ -9,7 +9,6 @@ on:
 
 concurrency:
   group: pr-issue-commands-${{ github.event.number }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
