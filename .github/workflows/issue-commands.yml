@@ -13,6 +13,22 @@ jobs:
     if: ${{ github.event.pull_request == false || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
+      - name: "Get vault secrets"
+        id: vault-secrets
+        uses: grafana/shared-workflows/actions/get-vault-secrets@main
+        with:
+          # Secrets placed in the ci/repo/grafana/<repo>/<path> path in Vault
+          repo_secrets: |
+            APP_ID=triager_bot_github:app_id
+            APP_PEM=triager_bot_github:app_pem
+
+      - name: "Generate token"
+        id: generate_token
+        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+        with:
+          app_id: ${{ env.APP_ID }}
+          private_key: ${{ env.APP_PEM }}
+
       - uses: hmarr/debug-action@v2
       - name: Checkout Actions
         uses: actions/checkout@v4
@@ -25,7 +41,7 @@ jobs:
       - name: Run Commands
         uses: ./actions/commands
         with:
-          token: ${{secrets.GH_BOT_ACCESS_TOKEN}}
+          token: ${{ steps.generate_token.outputs.token }}
           configPath: issue-commands
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
