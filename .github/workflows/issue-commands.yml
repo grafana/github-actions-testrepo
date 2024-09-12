@@ -6,8 +6,11 @@ on:
     types: [created]
   pull_request:
     types: [labeled]
+
 concurrency:
   group: pr-issue-commands-${{ github.event.number }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   id-token: write
