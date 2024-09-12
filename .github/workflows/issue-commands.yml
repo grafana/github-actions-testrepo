@@ -8,6 +8,9 @@ on:
     types: [labeled]
 concurrency:
   group: pr-issue-commands-${{ github.event.number }}
+permissions:
+  contents: read
+  id-token: write
 jobs:
   main:
     if: ${{ github.event.pull_request == false || github.event.pull_request.head.repo.full_name == github.repository }}
