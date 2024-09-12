@@ -19,7 +19,7 @@ jobs:
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
-          ref: add-wildcard-labels-command-support
+          ref: academo/test-label-issues
       - name: Install Actions
         run: npm install --production --prefix ./actions
       - name: Run Commands
