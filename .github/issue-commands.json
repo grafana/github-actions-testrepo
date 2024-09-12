@@ -22,5 +22,13 @@
     "addToProject": {
       "url": "https://github.com/orgs/grafana/projects/169"
     }
+  },
+  {
+    "type": "label",
+    "name": "area/moretesting",
+    "action": "addToProject",
+    "addToProject": {
+      "url": "https://github.com/orgs/grafana/projects/313"
+    }
   }
 ]
