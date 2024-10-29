@@ -30,15 +30,15 @@ jobs:
       - name: Check org membership
         id: check_membership
         run: |
-          RESPONSE=$(curl -s -X POST \
-            -H "Authorization: Bearer ${{ steps.generate_token.outputs.token }}" \
-            -H "Content-Type: application/json" \
-            https://api.github.com/graphql \
-            -d "{
-              \"query\": \"query { user(login: \\\"adela-almasan\\\") { organization(login: \\\"grafana\\\") { id } } }\"
-            }")
-
-          echo "RESPONSE: $RESPONSE"
+          RESPONSE=$(gh api graphql -f query='
+            query($login: String!) {
+              user(login: $login) {
+                organization(login: "grafana") {
+                  id
+                }
+              }
+            }
+          ' -f login="adela-almasan")
 
           # Use select to safely navigate the response
           if echo "$RESPONSE" | jq -e '.data.user?.organization?.id != null' > /dev/null; then
