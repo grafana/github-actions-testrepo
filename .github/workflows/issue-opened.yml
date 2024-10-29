@@ -38,6 +38,8 @@ jobs:
               \"query\": \"query { user(login: \\\"adela-almasan\\\") { organization(login: \\\"grafana\\\") { id } } }\"
             }")
 
+          echo "RESPONSE: $RESPONSE"
+
           # Use select to safely navigate the response
           if echo "$RESPONSE" | jq -e '.data.user?.organization?.id != null' > /dev/null; then
             echo "is_member=true" >> "$GITHUB_OUTPUT"
