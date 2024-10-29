@@ -30,7 +30,7 @@ jobs:
       - name: Check org membership
         id: check_membership
         env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           RESPONSE=$(gh api graphql -f query='
             query($login: String!) {
@@ -42,6 +42,8 @@ jobs:
             }
           ' -f login="adela-almasan")
 
+          echo "RESPONSE: $RESPONSE"
+
           # Use select to safely navigate the response
           if echo "$RESPONSE" | jq -e '.data.user?.organization?.id != null' > /dev/null; then
             echo "is_member=true" >> "$GITHUB_OUTPUT"
@@ -52,7 +54,6 @@ jobs:
       - name: Debug membership status
         run: |
           echo "Checking membership for user: ${{ github.event.issue.user.login }}"
-          echo "Raw API response: $RESPONSE"
           if [ "${{ steps.check_membership.outputs.is_member }}" = "true" ]; then
             echo "✅ User ${{ github.event.issue.user.login }} is a member of the organization"
           else
