@@ -30,7 +30,7 @@ jobs:
       - name: Check org membership
         id: check_membership
         env:
-          GH_TOKEN: ${{ secrets.GH_BOT_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
           RESPONSE=$(gh api graphql -f query='
             query($login: String!) {
