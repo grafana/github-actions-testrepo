@@ -26,8 +26,8 @@ jobs:
         with:
           # Secrets placed in the ci/repo/grafana/<repo>/<path> path in Vault
           repo_secrets: |
-            APP_ID=triager_bot_github:app_id
-            APP_PEM=triager_bot_github:app_pem
+            GH_APP_ID=plugins_platform_issue_commands_github_bot:app_id
+            GH_APP_PEM=plugins_platform_issue_commands_github_bot:app_pem
 
       - name: "Generate token"
         id: generate_token
@@ -35,29 +35,6 @@ jobs:
         with:
           app_id: ${{ env.APP_ID }}
           private_key: ${{ env.APP_PEM }}
-      - name: Check org membership
-        id: check_membership
-        env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          RESPONSE=$(gh api graphql -f query='
-            query($login: String!) {
-              user(login: $login) {
-                organization(login: "grafana") {
-                  id
-                }
-              }
-            }
-          ' -f login="mdvictor")
-
-          echo "RESPONSE: $RESPONSE"
-
-          # Use select to safely navigate the response
-          if echo "$RESPONSE" | jq -e '.data.user?.organization?.id != null' > /dev/null; then
-            echo "is_member=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "is_member=false" >> "$GITHUB_OUTPUT"
-          fi
       - name: Check if issue is in target project
         env:
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
