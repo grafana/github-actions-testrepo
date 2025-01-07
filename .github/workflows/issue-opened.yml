@@ -30,7 +30,7 @@ jobs:
       - name: Copy triager files
         run: |
           mkdir -p /home/runner/work/_actions/grafana/auto-triager/main/fixtures
-          cp auto-triager/*.txt /home/runner/work/_actions/grafana/auto-triager/main/fixtures/
+          cp ${{ github.workspace }}/auto-triager/*.txt /home/runner/work/_actions/grafana/auto-triager/main/fixtures/
 
       - name: Send issue to the auto triager action
         id: auto_triage
