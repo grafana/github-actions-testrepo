@@ -30,11 +30,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # - name: Copy triager files
-      #   run: |
-      #     mkdir -p /home/runner/work/_actions/grafana/auto-triager/main/fixtures
-      #     cp auto-triager/*.txt /home/runner/work/_actions/grafana/auto-triager/main/fixtures/
-
       - name: Send issue to the auto triager action
         id: auto_triage
         uses: grafana/auto-triager@main
