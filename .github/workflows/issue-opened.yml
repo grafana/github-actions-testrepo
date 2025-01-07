@@ -33,7 +33,7 @@ jobs:
         with:
           token: ${{ steps.generate_token.outputs.token }}
           issue_number: ${{ github.event.issue.number }}
-          openai_api_key: ${{ env.AUTOTRIAGER_OPENAI_API_KEY }}
+          openai_api_key: ${{ secrets.AUTOTRIAGER_OPENAI_API_KEY }}
           add_labels: true
           labels_file: ${{ github.workspace }}/auto-triager/labels.txt
           types_file: ${{ github.workspace }}/auto-triager/types.txt
