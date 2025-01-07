@@ -27,6 +27,11 @@ jobs:
           app_id: ${{ env.APP_ID }}
           private_key: ${{ env.APP_PEM }}
 
+      - name: Copy triager files
+        run: |
+          mkdir -p /home/runner/work/_actions/grafana/auto-triager/main/fixtures
+          cp auto-triager/*.txt /home/runner/work/_actions/grafana/auto-triager/main/fixtures/
+
       - name: Send issue to the auto triager action
         id: auto_triage
         uses: grafana/auto-triager@main
@@ -35,6 +40,6 @@ jobs:
           issue_number: ${{ github.event.issue.number }}
           openai_api_key: ${{ secrets.AUTOTRIAGER_OPENAI_API_KEY }}
           add_labels: true
-          labels_file: ${{ github.workspace }}/auto-triager/labels.txt
-          types_file: ${{ github.workspace }}/auto-triager/types.txt
-          prompt_file: ${{ github.workspace }}/auto-triager/prompt.txt
+          labels_file: fixtures/labels.txt
+          types_file: fixtures/types.txt
+          prompt_file: fixtures/prompt.txt
