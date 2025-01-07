@@ -27,35 +27,14 @@ jobs:
           app_id: ${{ env.APP_ID }}
           private_key: ${{ env.APP_PEM }}
 
-      - name: Check org membership
-        id: check_membership
-        env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          RESPONSE=$(gh api graphql -f query='
-            query($login: String!) {
-              user(login: $login) {
-                organization(login: "grafana") {
-                  id
-                }
-              }
-            }
-          ' -f login="adela-almasan")
-
-          echo "RESPONSE: $RESPONSE"
-
-          # Use select to safely navigate the response
-          if echo "$RESPONSE" | jq -e '.data.user?.organization?.id != null' > /dev/null; then
-            echo "is_member=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "is_member=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Debug membership status
-        run: |
-          echo "Checking membership for user: ${{ github.event.issue.user.login }}"
-          if [ "${{ steps.check_membership.outputs.is_member }}" = "true" ]; then
-            echo "✅ User ${{ github.event.issue.user.login }} is a member of the organization"
-          else
-            echo "❌ User ${{ github.event.issue.user.login }} is NOT a member of the organization"
-          fi
+      - name: Send issue to the auto triager action
+        id: auto_triage
+        uses: grafana/auto-triager@main
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          issue_number: ${{ github.event.issue.number }}
+          openai_api_key: ${{ env.AUTOTRIAGER_OPENAI_API_KEY }}
+          add_labels: true
+          labels_file: ${{ github.workspace }}/auto-triager/labels.txt
+          types_file: ${{ github.workspace }}/auto-triager/types.txt
+          prompt_file: ${{ github.workspace }}/auto-triager/prompt.txt
