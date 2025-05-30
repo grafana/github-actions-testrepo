@@ -1,0 +1,29 @@
+name: pr-trigger-workflow-in-main
+
+on: pull_request
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    # Tyring to test out how escaping "\" characters work
+    - name: Create message
+      id: message
+      run: |
+          MESSAGE="@foo/bar"
+          OUTPUT="**\\\`${MESSAGE}\\\`** has breaking changes."
+
+          echo "::set-output name=message::$OUTPUT"
+
+    - name: Persist message
+      run: |
+          mkdir -p ./output
+          echo "{ \"message\": \"${{ steps.message.outputs.message }}\" }" > ./output/result.json
+
+    - name: Upload check output as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: message
+        path: output/
