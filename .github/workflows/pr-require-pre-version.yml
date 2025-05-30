@@ -1,0 +1,23 @@
+name: Main branch with pre-version
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v4
+      - name: Get version
+        id: get_version
+        run:  |
+          echo "name=version::$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+      - name: Fail
+        if: "${{ !endsWith(steps.get_version.outputs.version, '-pre') }}"
+        run: |
+          echo "The version specific in the package.json must have \"-pre\" as suffix for the main branch." | tee -a $GITHUB_STEP_SUMMARY
+          exit 1
+
+
