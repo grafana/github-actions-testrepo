@@ -18,7 +18,7 @@ jobs:
 
       # Download artifact (as a .zip archive)
       - name: "Download artifact"
-        uses: actions/github-script@v6
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           RUN_ID: ${{ github.event.workflow_run.id }}
         with:
@@ -57,7 +57,7 @@ jobs:
       # Parse the artifact and register fields as step output variables
       # (All fields in the JSON will be available as ${{ steps.levitate-run.outputs.<field-name> }}
       - name: Parsing levitate result
-        uses: actions/github-script@v6
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         id: levitate-run
         with:
           script: |
