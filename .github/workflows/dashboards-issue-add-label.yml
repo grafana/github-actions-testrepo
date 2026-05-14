@@ -32,7 +32,7 @@ jobs:
     steps:
       - name: "Get vault secrets"
         id: vault-secrets
-        uses: grafana/shared-workflows/actions/get-vault-secrets@main
+        uses: grafana/shared-workflows/actions/get-vault-secrets@3adde9659883b3cd0c65d6acaa356b78a5f8f7f4 # main
         with:
           # Secrets placed in the ci/repo/grafana/<repo>/<path> path in Vault
           repo_secrets: |
