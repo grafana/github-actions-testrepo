@@ -31,7 +31,7 @@ jobs:
       result: ${{ steps.convert-trend.outputs.result }}
     steps:
       - id: extract-trend
-        uses: kaisugi/action-regex-match@v1.0.1
+        uses: kaisugi/action-regex-match@d67cd689755dc47c5362609e0a6e2e1c93fa721b # v1.0.2
         with:
           regex: '<!-- data key="trending" start -->([\s\S]*?)<!-- data end -->'
           text: ${{ github.event.comment.body }}
