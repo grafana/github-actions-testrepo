@@ -16,7 +16,7 @@ jobs:
     if: github.event.pull_request.draft == false
     steps:
       - name: Run auto-milestone
-        uses: grafana/grafana-github-actions-go/auto-milestone@main
+        uses: grafana/grafana-github-actions-go/auto-milestone@6782bcaa01680648bdbba76cce1847e1862dbb22 # main
         with:
           pr: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
