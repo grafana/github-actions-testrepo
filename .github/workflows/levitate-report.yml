@@ -14,11 +14,11 @@ jobs:
       ARTIFACT_FOLDER: "${{ github.workspace }}/tmp" # The name of the folder where we will download the artifact to
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
 
       # Download artifact (as a .zip archive)
       - name: "Download artifact"
-        uses: actions/github-script@v6
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
         env:
           RUN_ID: ${{ github.event.workflow_run.id }}
         with:
@@ -57,7 +57,7 @@ jobs:
       # Parse the artifact and register fields as step output variables
       # (All fields in the JSON will be available as ${{ steps.levitate-run.outputs.<field-name> }}
       - name: Parsing levitate result
-        uses: actions/github-script@v6
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
         id: levitate-run
         with:
           script: |
