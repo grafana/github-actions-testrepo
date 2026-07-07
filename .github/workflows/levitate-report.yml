@@ -94,7 +94,7 @@ jobs:
       # Comment on Pull Request
       - name: Comment on PR
         if: steps.levitate-run.outputs.shouldSkip != 'true' && steps.levitate-run.outputs.shouldSkip != 'ANOTHER DUMMY CHECK'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
         with:
           number: ${{ steps.levitate-run.outputs.pr_number }}
           message: |
