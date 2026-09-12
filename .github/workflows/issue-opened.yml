@@ -28,11 +28,11 @@ jobs:
           private_key: ${{ env.APP_PEM }}
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
       - name: Send issue to the auto triager action
         id: auto_triage
-        uses: grafana/auto-triager@main
+        uses: grafana/auto-triager@3a2bdfb61673a103721a1b76d14175bb9ba0a39a # main
         with:
           token: ${{ steps.generate_token.outputs.token }}
           issue_number: ${{ github.event.issue.number }}

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # This is a basic workflow to help you get started with Actions
-      - uses: actions-ecosystem/action-regex-match@v2.0.2
+      - uses: actions-ecosystem/action-regex-match@9e6c4fb3d5e898f505be7a1fb6e7b0a278f6665b # v2.0.2
         id: regex-match
         with:
           text: ${{ github.event.inputs.version }}
@@ -23,7 +23,7 @@ jobs:
           major.minor.patch or major.minor.patch-beta.number format. \
           example: 7.4.3 or 7.4.3-beta.1"
           exit 1
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
 
       - name: Set intermedia variables
         id: intermedia
@@ -48,7 +48,7 @@ jobs:
           exit 1
 
       - name: Checkout Actions
-        uses: actions/checkout@v2
+        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
         with:
           repository: "grafana/grafana-github-actions"
           path: ./actions
