@@ -6,7 +6,7 @@ on:
       - created
 jobs:
   update-epic-trending-field:
-    uses: grafana/github-actions-testrepo/.github/workflows/update-trending-base.yml@main
+    uses: grafana/github-actions-testrepo/.github/workflows/update-trending-base.yml@c41d66af4cba4aa41863770dbbb0f2aaa60c33c1 # main
     with:
       project_number: 582
       github_token: ${{ secrets.TEST_ACCESS_TOKEN }}
