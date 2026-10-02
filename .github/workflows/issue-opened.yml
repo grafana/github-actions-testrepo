@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: "Get vault secrets"
         id: vault-secrets
-        uses: grafana/shared-workflows/actions/get-vault-secrets@main
+        uses: grafana/shared-workflows/actions/get-vault-secrets@d8353fd2c4ff821bd9a635f222305545ddb61266 # main
         with:
           # Secrets placed in the ci/repo/grafana/<repo>/<path> path in Vault
           repo_secrets: |
@@ -28,11 +28,11 @@ jobs:
           private_key: ${{ env.APP_PEM }}
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
       - name: Send issue to the auto triager action
         id: auto_triage
-        uses: grafana/auto-triager@main
+        uses: grafana/auto-triager@f64a347584b2eb82c3bceac714a7720eb2b436e3 # main
         with:
           token: ${{ steps.generate_token.outputs.token }}
           issue_number: ${{ github.event.issue.number }}
