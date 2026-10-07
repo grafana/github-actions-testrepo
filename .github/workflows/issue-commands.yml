@@ -34,7 +34,7 @@ jobs:
           app_id: ${{ env.APP_ID }}
           private_key: ${{ env.APP_PEM }}
 
-      - uses: hmarr/debug-action@v2
+      - uses: hmarr/debug-action@cd1afbd7852b7ad7b1b7a9a1b03efebd3b0a1820 # v3.0.0
       - name: Checkout Actions
         uses: actions/checkout@v4
         with:
